@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05688DE61B4467B200A5482E /* ResizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05688DE51B4467B200A5482E /* ResizeViewController.swift */; };
+		05688DE81B447CE900A5482E /* EraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05688DE71B447CE900A5482E /* EraseViewController.swift */; };
 		058522DD1B42FC900057AEE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058522DC1B42FC900057AEE4 /* AppDelegate.swift */; };
 		058522DF1B42FC900057AEE4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058522DE1B42FC900057AEE4 /* ViewController.swift */; };
 		058522E21B42FC900057AEE4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 058522E01B42FC900057AEE4 /* Main.storyboard */; };
@@ -26,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05688DE51B4467B200A5482E /* ResizeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResizeViewController.swift; sourceTree = "<group>"; };
+		05688DE71B447CE900A5482E /* EraseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EraseViewController.swift; sourceTree = "<group>"; };
 		058522D71B42FC900057AEE4 /* Blender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		058522DB1B42FC900057AEE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		058522DC1B42FC900057AEE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,10 +83,12 @@
 			children = (
 				058522DC1B42FC900057AEE4 /* AppDelegate.swift */,
 				058522DE1B42FC900057AEE4 /* ViewController.swift */,
+				05688DE51B4467B200A5482E /* ResizeViewController.swift */,
 				058522E01B42FC900057AEE4 /* Main.storyboard */,
 				058522E31B42FC900057AEE4 /* Images.xcassets */,
 				058522E51B42FC900057AEE4 /* LaunchScreen.xib */,
 				058522DA1B42FC900057AEE4 /* Supporting Files */,
+				05688DE71B447CE900A5482E /* EraseViewController.swift */,
 			);
 			path = Blender;
 			sourceTree = "<group>";
@@ -214,6 +220,8 @@
 			files = (
 				058522DF1B42FC900057AEE4 /* ViewController.swift in Sources */,
 				058522DD1B42FC900057AEE4 /* AppDelegate.swift in Sources */,
+				05688DE61B4467B200A5482E /* ResizeViewController.swift in Sources */,
+				05688DE81B447CE900A5482E /* EraseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
