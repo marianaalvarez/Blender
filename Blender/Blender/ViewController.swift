@@ -13,31 +13,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var foregroundImage: UIImageView!
     let imagePicker = UIImagePickerController()
+    var selectedImage: Int?
     
-    @IBAction func addImage(sender: AnyObject) {
-        let alertController = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .ActionSheet)
-        let cameraAction = UIAlertAction(title: "Take a Photo", style: .Default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            println("Take Photo")
-        })
-        let galleryAction = UIAlertAction(title: "Choose from Library", style: .Default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            println("Gallery")
-        })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        
-        alertController.addAction(cameraAction)
-        alertController.addAction(galleryAction)
-        alertController.addAction(cancelAction)
-        
-        alertController.view.tintColor = UIColor(red:1, green:0.41, blue:0.617, alpha:1)
-        
-        presentViewController(alertController, animated: true, completion: nil)
-        
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .PhotoLibrary
-        
-        //presentViewController(imagePicker, animated: true, completion: nil)
+    @IBAction func addBackground(sender: AnyObject) {
+        selectedImage = 1
+        self.addImage()
+    }
+    @IBAction func addForeground(sender: AnyObject) {
+        selectedImage = 2
+        self.addImage()
     }
     
     override func viewDidLoad() {
@@ -49,10 +33,40 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.didReceiveMemoryWarning()
     }
     
+    func addImage() {
+        imagePicker.allowsEditing = false
+        
+        let alertController = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .ActionSheet)
+        let cameraAction = UIAlertAction(title: "Take a Photo", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.imagePicker.sourceType = .Camera
+            self.presentViewController(self.imagePicker, animated: true, completion: nil)
+        })
+        let galleryAction = UIAlertAction(title: "Choose from Library", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            self.imagePicker.sourceType = .PhotoLibrary
+            self.presentViewController(self.imagePicker, animated: true, completion: nil)
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        alertController.addAction(cameraAction)
+        alertController.addAction(galleryAction)
+        alertController.addAction(cancelAction)
+        
+        alertController.view.tintColor = UIColor(red:1, green:0.41, blue:0.617, alpha:1)
+        
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            backgroundImage.contentMode = .ScaleAspectFit
-            backgroundImage.image = pickedImage
+            if selectedImage == 1 {
+                backgroundImage.contentMode = .ScaleAspectFit
+                backgroundImage.image = pickedImage
+            } else {
+                foregroundImage.contentMode = .ScaleAspectFit
+                foregroundImage.image = pickedImage
+            }
         }
         
 //        UIImagePickerControllerMediaType
@@ -68,15 +82,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    func willPresentActionSheet(actionSheet: UIActionSheet) {
-        for subview in actionSheet.subviews {
-            if (subview.isKindOfClass(UIButton)) {
-                var button = subview as! UIButton
-                button.setTitleColor(UIColor(red:1, green:0.41, blue:0.617, alpha:1), forState: .Normal)
-            }
-        }
     }
 
 }

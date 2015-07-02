@@ -90,7 +90,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="addImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lIs-m9-9uL"/>
+                                    <action selector="addBackground:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gcB-IZ-7ha"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYG-eT-dYI">
@@ -98,6 +98,9 @@
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="addForeground:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fyE-G4-ASM"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
