@@ -31,14 +31,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         imagePicker.delegate = self
         
-        backgroundImage.image = UIImage(named: "dotted")
-        foregroundImage.image = UIImage(named: "dotted")
+        backgroundImage.image = UIImage(named: "photo")
+        foregroundImage.image = UIImage(named: "photo")
         
         backgroundSet = false
         foregroundSet = false
         
-        blendButton.userInteractionEnabled = false
-        blendButton.alpha = 0.5
+//        blendButton.userInteractionEnabled = false
+//        blendButton.alpha = 0.5
     }
     
     override func didReceiveMemoryWarning() {
@@ -100,6 +100,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "showEdit") {
+            println("passou")
+            let destinationController = segue.destinationViewController as! EditViewController
+            destinationController.image1 = backgroundImage.image
+            destinationController.image2 = foregroundImage.image
+        }
     }
 
 }

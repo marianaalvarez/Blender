@@ -36,26 +36,23 @@
                             <imageView userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background3" translatesAutoresizingMaskIntoConstraints="NO" id="r4m-EM-DKD">
                                 <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dotted" translatesAutoresizingMaskIntoConstraints="NO" id="qxH-M1-YEI">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="photo" translatesAutoresizingMaskIntoConstraints="NO" id="qxH-M1-YEI">
                                 <rect key="frame" x="0.0" y="64" width="300" height="300"/>
                                 <color key="backgroundColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ms-7w-eBp">
                                 <rect key="frame" x="534" y="534" width="40" height="40"/>
-                                <state key="normal" image="Star-100-2">
+                                <state key="normal" image="star">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O19-kJ-WPP">
                                 <rect key="frame" x="467" y="534" width="40" height="40"/>
-                                <state key="normal" image="Settings-100-3">
+                                <state key="normal" image="settings">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Multiple Cameras-100" translatesAutoresizingMaskIntoConstraints="NO" id="Mx4-eh-JmY">
-                                <rect key="frame" x="423" y="166" width="55" height="55"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dotted" translatesAutoresizingMaskIntoConstraints="NO" id="sGo-Ia-wIK">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="photo" translatesAutoresizingMaskIntoConstraints="NO" id="sGo-Ia-wIK">
                                 <rect key="frame" x="300" y="64" width="300" height="300"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add a Background" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZz-17-hSl">
@@ -99,7 +96,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="KGb-w3-pkN" kind="show" id="I2w-PG-fuJ"/>
+                                    <segue destination="KGb-w3-pkN" kind="show" identifier="showEdit" id="I2w-PG-fuJ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -127,19 +124,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kmj-7T-S9p">
-                                <rect key="frame" x="0.0" y="551" width="600" height="49"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <items>
-                                    <tabBarItem image="Resize Four Directions-32" id="XbB-AS-626">
-                                        <inset key="imageInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
-                                    </tabBarItem>
-                                    <tabBarItem image="Erase-32" id="qKO-6g-7yg"/>
-                                    <tabBarItem title="" image="Sun-32" id="gZ9-dG-iJG"/>
-                                    <tabBarItem title="" image="Rotate Left-32" id="DiT-Uo-KvL"/>
-                                </items>
-                                <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </tabBar>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wVI-Jd-oOO">
                                 <rect key="frame" x="0.0" y="400" width="600" height="151"/>
                                 <subviews>
@@ -192,12 +176,12 @@
                                         <rect key="frame" x="0.0" y="551" width="600" height="49"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <items>
-                                            <tabBarItem image="Resize Four Directions-32" id="Naf-Ir-dAT">
+                                            <tabBarItem image="resize" id="Naf-Ir-dAT">
                                                 <inset key="imageInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
                                             </tabBarItem>
-                                            <tabBarItem tag="1" image="Erase-32" id="mwP-CN-A3c"/>
-                                            <tabBarItem tag="2" title="" image="Sun-32" id="goL-XL-m6d"/>
-                                            <tabBarItem tag="3" title="" image="Rotate Left-32" id="fzh-2K-3aA"/>
+                                            <tabBarItem tag="1" image="erase" id="mwP-CN-A3c"/>
+                                            <tabBarItem tag="2" title="" image="sun" id="goL-XL-m6d"/>
+                                            <tabBarItem tag="3" title="" image="undo" id="fzh-2K-3aA"/>
                                         </items>
                                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </tabBar>
@@ -223,7 +207,7 @@
                                         <rect key="frame" x="125" y="508" width="461" height="31"/>
                                         <color key="tintColor" red="1" green="0.39997637270000003" blue="0.61530852319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </slider>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background3" translatesAutoresizingMaskIntoConstraints="NO" id="qSD-Dt-nqx">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qSD-Dt-nqx">
                                         <rect key="frame" x="179" y="110" width="300" height="300"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Xl-PS-Qen">
@@ -241,19 +225,22 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLt-Qn-Iss">
                                                 <rect key="frame" x="360" y="7" width="30" height="30"/>
-                                                <state key="normal" title="Button" image="2 Circle-64">
+                                                <state key="normal" title="Button" image="number2">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IhJ-Ef-Hij">
                                                 <rect key="frame" x="253" y="8" width="30" height="30"/>
-                                                <state key="normal" title="Button" image="1 Circle-64">
+                                                <state key="normal" title="Button" image="number1">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vdT-uV-KHY">
+                                        <rect key="frame" x="179" y="110" width="300" height="300"/>
+                                    </imageView>
                                     <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="YXc-eG-8uY">
                                         <rect key="frame" x="125" y="437" width="461" height="31"/>
                                         <color key="tintColor" red="1" green="0.39997637270000003" blue="0.61530852319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -276,6 +263,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="backgroundImage" destination="qSD-Dt-nqx" id="QLG-0E-ZTM"/>
+                        <outlet property="foregroundImage" destination="vdT-uV-KHY" id="etK-wP-pGj"/>
                         <outlet property="tabBar" destination="aE5-i2-SlH" id="k5z-UO-sL2"/>
                     </connections>
                 </viewController>
@@ -287,15 +276,16 @@
     <resources>
         <image name="1 Circle-64" width="64" height="64"/>
         <image name="2 Circle-64" width="64" height="64"/>
-        <image name="Erase-32" width="32" height="32"/>
-        <image name="Multiple Cameras-100" width="100" height="100"/>
-        <image name="Resize Four Directions-32" width="32" height="32"/>
-        <image name="Rotate Left-32" width="32" height="32"/>
-        <image name="Settings-100-3" width="100" height="100"/>
-        <image name="Star-100-2" width="100" height="100"/>
-        <image name="Sun-32" width="32" height="32"/>
         <image name="background3" width="743" height="1206"/>
-        <image name="dotted" width="600" height="600"/>
+        <image name="erase" width="32" height="32"/>
+        <image name="number1" width="64" height="64"/>
+        <image name="number2" width="64" height="64"/>
+        <image name="photo" width="600" height="600"/>
         <image name="plus" width="100" height="100"/>
+        <image name="resize" width="32" height="32"/>
+        <image name="settings" width="100" height="100"/>
+        <image name="star" width="100" height="100"/>
+        <image name="sun" width="32" height="32"/>
+        <image name="undo" width="32" height="32"/>
     </resources>
 </document>

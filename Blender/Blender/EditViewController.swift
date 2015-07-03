@@ -11,6 +11,10 @@ import UIKit
 class EditViewController: UIViewController, UITabBarDelegate {
 
     @IBOutlet weak var tabBar: UITabBar!
+    @IBOutlet weak var backgroundImage: UIImageView!
+    @IBOutlet weak var foregroundImage: UIImageView!
+    var image1 : UIImage?
+    var image2 : UIImage?
     
     @IBAction func cancelButton(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
@@ -19,6 +23,8 @@ class EditViewController: UIViewController, UITabBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.delegate = self
+        backgroundImage.image = image1
+        foregroundImage.image = image2
     }
 
     override func didReceiveMemoryWarning() {
