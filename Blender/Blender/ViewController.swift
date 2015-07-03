@@ -13,6 +13,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var foregroundImage: UIImageView!
     @IBOutlet weak var blendButton: UIButton!
+    @IBOutlet weak var backgroundText: UILabel!
+    @IBOutlet weak var foregroundText: UILabel!
     let imagePicker = UIImagePickerController()
     var selectedImage: Int?
     var backgroundSet: Bool?
@@ -73,11 +75,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             if selectedImage == 1 {
-                backgroundImage.contentMode = .ScaleAspectFit
+                backgroundImage.contentMode = .ScaleAspectFill
                 backgroundImage.image = pickedImage
                 backgroundSet = true
             } else {
-                foregroundImage.contentMode = .ScaleAspectFit
+                foregroundImage.contentMode = UIViewContentMode.ScaleAspectFill
                 foregroundImage.image = pickedImage
                 foregroundSet = true
             }

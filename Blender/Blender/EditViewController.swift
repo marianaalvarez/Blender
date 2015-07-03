@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditViewController: UIViewController, UITabBarDelegate {
+class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelegate {
 
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var backgroundImage: UIImageView!
@@ -16,6 +16,7 @@ class EditViewController: UIViewController, UITabBarDelegate {
     var image1 : UIImage?
     var image2 : UIImage?
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBAction func cancelButton(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -23,8 +24,15 @@ class EditViewController: UIViewController, UITabBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.delegate = self
+        scrollView.delegate = self
         backgroundImage.image = image1
         foregroundImage.image = image2
+        foregroundImage.alpha = 0.5
+        scrollView.bounds = foregroundImage.bounds
+        scrollView.addSubview(foregroundImage)
+        scrollView.contentSize = foregroundImage.bounds.size
+        scrollView.maximumZoomScale = 10
+        scrollView.minimumZoomScale = 1
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,5 +49,13 @@ class EditViewController: UIViewController, UITabBarDelegate {
         if (item.tag == 2) {
             println("dois")
         }
+    }
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return foregroundImage
+    }
+    
+    func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView!, atScale scale: CGFloat) {
+        
     }
 }

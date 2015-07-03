@@ -2,6 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PgH-VW-kZd">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -33,10 +35,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background3" translatesAutoresizingMaskIntoConstraints="NO" id="r4m-EM-DKD">
+                            <imageView userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background3" translatesAutoresizingMaskIntoConstraints="NO" id="r4m-EM-DKD">
                                 <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="photo" translatesAutoresizingMaskIntoConstraints="NO" id="qxH-M1-YEI">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" translatesAutoresizingMaskIntoConstraints="NO" id="qxH-M1-YEI">
                                 <rect key="frame" x="0.0" y="64" width="300" height="300"/>
                                 <color key="backgroundColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
@@ -52,8 +54,11 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="photo" translatesAutoresizingMaskIntoConstraints="NO" id="sGo-Ia-wIK">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" translatesAutoresizingMaskIntoConstraints="NO" id="sGo-Ia-wIK">
                                 <rect key="frame" x="300" y="64" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="sGo-Ia-wIK" secondAttribute="height" multiplier="1:1" id="HOR-RJ-WUr"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add a Background" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZz-17-hSl">
                                 <rect key="frame" x="84" y="206" width="132" height="21"/>
@@ -71,7 +76,7 @@
                                 <rect key="frame" x="270" y="184" width="60" height="60"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYV-Yt-oLZ">
-                                <rect key="frame" x="0.0" y="64" width="292" height="300"/>
+                                <rect key="frame" x="28" y="325" width="292" height="300"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -80,7 +85,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYG-eT-dYI">
-                                <rect key="frame" x="308" y="72" width="292" height="292"/>
+                                <rect key="frame" x="292" y="329" width="292" height="292"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -101,12 +106,33 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="sGo-Ia-wIK" firstAttribute="leading" secondItem="qxH-M1-YEI" secondAttribute="trailing" id="1NQ-oD-h1D"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="sGo-Ia-wIK" secondAttribute="trailing" constant="-16" id="7AT-Hn-fDo"/>
+                            <constraint firstItem="qxH-M1-YEI" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="9qZ-FV-oNv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="r4m-EM-DKD" secondAttribute="trailing" constant="-16" id="Dwa-CG-rC8"/>
+                            <constraint firstItem="qxH-M1-YEI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="ECs-xj-7ts"/>
+                            <constraint firstItem="sGo-Ia-wIK" firstAttribute="width" secondItem="qxH-M1-YEI" secondAttribute="width" id="Ofl-ke-Z2O"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="r4m-EM-DKD" secondAttribute="bottom" id="TyM-yD-9pc"/>
+                            <constraint firstItem="r4m-EM-DKD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="jdl-RJ-QgW"/>
+                            <constraint firstItem="r4m-EM-DKD" firstAttribute="top" secondItem="qxH-M1-YEI" secondAttribute="bottom" id="qMw-Wy-8ly"/>
+                            <constraint firstItem="sGo-Ia-wIK" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="rxH-AB-yFP"/>
+                            <constraint firstItem="sGo-Ia-wIK" firstAttribute="height" secondItem="qxH-M1-YEI" secondAttribute="height" id="zNC-W6-rUx"/>
+                            <constraint firstItem="r4m-EM-DKD" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="zWY-AC-s8e"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="qMw-Wy-8ly"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="PhotoBlender" id="xYY-ud-sCn"/>
                     <connections>
                         <outlet property="backgroundImage" destination="qxH-M1-YEI" id="YKX-tD-RIz"/>
+                        <outlet property="backgroundText" destination="jZz-17-hSl" id="f8d-WA-FKR"/>
                         <outlet property="blendButton" destination="wwV-aY-nnh" id="8oV-wX-glo"/>
                         <outlet property="foregroundImage" destination="sGo-Ia-wIK" id="joV-Vr-PrM"/>
+                        <outlet property="foregroundText" destination="oly-pa-WHH" id="LeO-Nh-RBT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -191,6 +217,10 @@
                                         <color key="textColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="YXc-eG-8uY">
+                                        <rect key="frame" x="125" y="437" width="461" height="31"/>
+                                        <color key="tintColor" red="1" green="0.39997637270000003" blue="0.61530852319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Blender" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tyJ-HS-xhS">
                                         <rect key="frame" x="21" y="441" width="60" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -241,10 +271,9 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vdT-uV-KHY">
                                         <rect key="frame" x="179" y="110" width="300" height="300"/>
                                     </imageView>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="YXc-eG-8uY">
-                                        <rect key="frame" x="125" y="437" width="461" height="31"/>
-                                        <color key="tintColor" red="1" green="0.39997637270000003" blue="0.61530852319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </slider>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TRn-b0-ZZD">
+                                        <rect key="frame" x="180" y="110" width="299" height="300"/>
+                                    </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.57546497990000001" green="0.57546497990000001" blue="0.57546497990000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -265,6 +294,7 @@
                     <connections>
                         <outlet property="backgroundImage" destination="qSD-Dt-nqx" id="QLG-0E-ZTM"/>
                         <outlet property="foregroundImage" destination="vdT-uV-KHY" id="etK-wP-pGj"/>
+                        <outlet property="scrollView" destination="TRn-b0-ZZD" id="H1s-H1-ax8"/>
                         <outlet property="tabBar" destination="aE5-i2-SlH" id="k5z-UO-sL2"/>
                     </connections>
                 </viewController>
