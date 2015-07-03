@@ -118,7 +118,7 @@
         <!--PhotoBlender-->
         <scene sceneID="byq-cc-d16">
             <objects>
-                <viewController id="KGb-w3-pkN" sceneMemberID="viewController">
+                <viewController id="KGb-w3-pkN" customClass="EditViewController" customModule="Blender" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LR8-gZ-zom"/>
                         <viewControllerLayoutGuide type="bottom" id="Dc6-pe-3Bs"/>
@@ -195,9 +195,9 @@
                                             <tabBarItem image="Resize Four Directions-32" id="Naf-Ir-dAT">
                                                 <inset key="imageInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
                                             </tabBarItem>
-                                            <tabBarItem image="Erase-32" id="mwP-CN-A3c"/>
-                                            <tabBarItem title="" image="Sun-32" id="goL-XL-m6d"/>
-                                            <tabBarItem title="" image="Rotate Left-32" id="fzh-2K-3aA"/>
+                                            <tabBarItem tag="1" image="Erase-32" id="mwP-CN-A3c"/>
+                                            <tabBarItem tag="2" title="" image="Sun-32" id="goL-XL-m6d"/>
+                                            <tabBarItem tag="3" title="" image="Rotate Left-32" id="fzh-2K-3aA"/>
                                         </items>
                                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </tabBar>
@@ -267,11 +267,17 @@
                     <navigationItem key="navigationItem" title="PhotoBlender" id="QXS-oP-5bd">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="9ci-9t-VhL">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="cancelButton:" destination="KGb-w3-pkN" id="yG6-nX-6VI"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="qra-D8-SgK">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tabBar" destination="aE5-i2-SlH" id="k5z-UO-sL2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5K8-IU-Kyl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

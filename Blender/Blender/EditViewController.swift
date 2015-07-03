@@ -8,28 +8,32 @@
 
 import UIKit
 
-class EditViewController: UIViewController {
+class EditViewController: UIViewController, UITabBarDelegate {
 
+    @IBOutlet weak var tabBar: UITabBar!
+    
+    @IBAction func cancelButton(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        tabBar.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {
+        if (item.tag == 0) {
+            println("zero")
+        }
+        if (item.tag == 1) {
+            println("um")
+        }
+        if (item.tag == 2) {
+            println("dois")
+        }
     }
-    */
-
 }
