@@ -12,8 +12,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var foregroundImage: UIImageView!
+    @IBOutlet weak var blendButton: UIButton!
     let imagePicker = UIImagePickerController()
     var selectedImage: Int?
+    var backgroundSet: Bool?
+    var foregroundSet: Bool?
     
     @IBAction func addBackground(sender: AnyObject) {
         selectedImage = 1
@@ -27,6 +30,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
+        
+        backgroundImage.image = UIImage(named: "dotted")
+        foregroundImage.image = UIImage(named: "dotted")
+        
+        backgroundSet = false
+        foregroundSet = false
+        
+        blendButton.userInteractionEnabled = false
+        blendButton.alpha = 0.5
     }
     
     override func didReceiveMemoryWarning() {
@@ -63,9 +75,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             if selectedImage == 1 {
                 backgroundImage.contentMode = .ScaleAspectFit
                 backgroundImage.image = pickedImage
+                backgroundSet = true
             } else {
                 foregroundImage.contentMode = .ScaleAspectFit
                 foregroundImage.image = pickedImage
+                foregroundSet = true
+            }
+            if (foregroundSet == true && backgroundSet == true) {
+                blendButton.alpha = 1
+                blendButton.userInteractionEnabled = true
             }
         }
         

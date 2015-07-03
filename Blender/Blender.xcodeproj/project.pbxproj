@@ -13,6 +13,7 @@
 		058522E41B42FC900057AEE4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058522E31B42FC900057AEE4 /* Images.xcassets */; };
 		058522E71B42FC900057AEE4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 058522E51B42FC900057AEE4 /* LaunchScreen.xib */; };
 		058522F31B42FC900057AEE4 /* BlenderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058522F21B42FC900057AEE4 /* BlenderTests.swift */; };
+		05F81BEE1B462E0700104029 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F81BED1B462E0700104029 /* EditViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		058522EC1B42FC900057AEE4 /* BlenderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlenderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		058522F11B42FC900057AEE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		058522F21B42FC900057AEE4 /* BlenderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderTests.swift; sourceTree = "<group>"; };
+		05F81BED1B462E0700104029 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			children = (
 				058522DC1B42FC900057AEE4 /* AppDelegate.swift */,
 				058522DE1B42FC900057AEE4 /* ViewController.swift */,
+				05F81BED1B462E0700104029 /* EditViewController.swift */,
 				058522E01B42FC900057AEE4 /* Main.storyboard */,
 				058522E31B42FC900057AEE4 /* Images.xcassets */,
 				058522E51B42FC900057AEE4 /* LaunchScreen.xib */,
@@ -214,6 +217,7 @@
 			files = (
 				058522DF1B42FC900057AEE4 /* ViewController.swift in Sources */,
 				058522DD1B42FC900057AEE4 /* AppDelegate.swift in Sources */,
+				05F81BEE1B462E0700104029 /* EditViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
