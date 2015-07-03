@@ -210,16 +210,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wVI-Jd-oOO">
-                                <rect key="frame" x="0.0" y="400" width="600" height="151"/>
-                                <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="IR1-hy-mjz">
-                                        <rect key="frame" x="123" y="69" width="461" height="31"/>
-                                        <color key="tintColor" red="1" green="0.39997637271881104" blue="0.61530852317810059" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </slider>
-                                </subviews>
-                                <color key="backgroundColor" red="0.4431372549" green="0.4431372549" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qSD-Dt-nqx">
+                                <rect key="frame" x="0.0" y="99" width="600" height="600"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="297" id="0I5-z8-yOh"/>
+                                    <constraint firstAttribute="height" constant="307" id="2xJ-Su-Vbm"/>
+                                    <constraint firstAttribute="width" secondItem="qSD-Dt-nqx" secondAttribute="height" multiplier="1:1" id="SNf-Tm-EJr"/>
+                                    <constraint firstAttribute="height" constant="307" id="gny-dM-wtr"/>
+                                    <constraint firstAttribute="width" secondItem="qSD-Dt-nqx" secondAttribute="height" multiplier="600:307" id="t1f-Jv-m9b"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="0I5-z8-yOh"/>
+                                        <exclude reference="2xJ-Su-Vbm"/>
+                                        <exclude reference="gny-dM-wtr"/>
+                                        <exclude reference="t1f-Jv-m9b"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vdT-uV-KHY">
+                                <rect key="frame" x="0.0" y="99" width="600" height="600"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="vdT-uV-KHY" secondAttribute="height" multiplier="1:1" id="GRb-xC-L26"/>
+                                </constraints>
+                            </imageView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TRn-b0-ZZD">
+                                <rect key="frame" x="0.0" y="99" width="600" height="600"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="TRn-b0-ZZD" secondAttribute="height" multiplier="1:1" id="0K0-hy-olb"/>
+                                </constraints>
+                            </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Brightness" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w9H-ZW-t7l">
                                 <rect key="frame" x="16" y="473" width="82" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -232,10 +252,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="fRV-Rs-dFb">
-                                <rect key="frame" x="125" y="434" width="461" height="31"/>
-                                <color key="tintColor" red="1" green="0.39997637271881104" blue="0.61530852317810059" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Contrast" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D7j-QV-OZx">
                                 <rect key="frame" x="16" y="508" width="67" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -246,99 +262,106 @@
                                 <rect key="frame" x="125" y="503" width="461" height="31"/>
                                 <color key="tintColor" red="1" green="0.39997637271881104" blue="0.61530852317810059" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </slider>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BTm-cD-gRg">
-                                <rect key="frame" x="340" y="72" width="30" height="30"/>
-                                <state key="normal" title="Button" image="2 Circle-64">
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="WXZ-Iy-eZn">
+                                <rect key="frame" x="104" y="450" width="461" height="31"/>
+                                <color key="tintColor" red="1" green="0.39997637270000003" blue="0.61530852319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="wHz-uz-lEt">
+                                <rect key="frame" x="120" y="472" width="461" height="31"/>
+                                <color key="tintColor" red="1" green="0.39997637270000003" blue="0.61530852319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </slider>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="branco" translatesAutoresizingMaskIntoConstraints="NO" id="ECA-lH-m8D">
+                                <rect key="frame" x="0.0" y="64" width="600" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="Cvx-EG-nS4"/>
+                                    <constraint firstAttribute="height" constant="35" id="b4b-yo-0Oa"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="b4b-yo-0Oa"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aE5-i2-SlH">
+                                <rect key="frame" x="0.0" y="551" width="600" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <tabBarItem image="resize" id="Naf-Ir-dAT">
+                                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                                    </tabBarItem>
+                                    <tabBarItem tag="1" image="erase" id="mwP-CN-A3c">
+                                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                                    </tabBarItem>
+                                    <tabBarItem tag="2" title="" image="sun" id="goL-XL-m6d">
+                                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                                    </tabBarItem>
+                                    <tabBarItem tag="3" title="" image="undo" id="fzh-2K-3aA">
+                                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                                    </tabBarItem>
+                                </items>
+                                <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </tabBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLt-Qn-Iss">
+                                <rect key="frame" x="465" y="67" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="pLt-Qn-Iss" secondAttribute="height" multiplier="1:1" id="n7h-8a-V61"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="number2">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background3" translatesAutoresizingMaskIntoConstraints="NO" id="9ks-ZO-15e">
-                                <rect key="frame" x="179" y="100" width="300" height="300"/>
-                            </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6uh-Tl-izD">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <subviews>
-                                    <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aE5-i2-SlH">
-                                        <rect key="frame" x="0.0" y="551" width="600" height="49"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <items>
-                                            <tabBarItem image="resize" id="Naf-Ir-dAT">
-                                                <inset key="imageInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
-                                            </tabBarItem>
-                                            <tabBarItem tag="1" image="erase" id="mwP-CN-A3c"/>
-                                            <tabBarItem tag="2" title="" image="sun" id="goL-XL-m6d"/>
-                                            <tabBarItem tag="3" title="" image="undo" id="fzh-2K-3aA"/>
-                                        </items>
-                                        <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </tabBar>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Brightness" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gnz-wA-vpl">
-                                        <rect key="frame" x="18" y="479" width="82" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="YXc-eG-8uY">
-                                        <rect key="frame" x="125" y="437" width="461" height="31"/>
-                                        <color key="tintColor" red="1" green="0.39997637270000003" blue="0.61530852319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </slider>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Blender" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tyJ-HS-xhS">
-                                        <rect key="frame" x="21" y="441" width="60" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Contrast" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojt-G0-EDI">
-                                        <rect key="frame" x="18" y="512" width="67" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="WXZ-Iy-eZn">
-                                        <rect key="frame" x="125" y="508" width="461" height="31"/>
-                                        <color key="tintColor" red="1" green="0.39997637270000003" blue="0.61530852319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </slider>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qSD-Dt-nqx">
-                                        <rect key="frame" x="179" y="110" width="300" height="300"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Xl-PS-Qen">
-                                        <rect key="frame" x="278" y="72" width="30" height="30"/>
-                                        <state key="normal" title="Button" image="1 Circle-64">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="wHz-uz-lEt">
-                                        <rect key="frame" x="125" y="474" width="461" height="31"/>
-                                        <color key="tintColor" red="1" green="0.39997637270000003" blue="0.61530852319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </slider>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B4Q-KP-dcz">
-                                        <rect key="frame" x="1" y="66" width="600" height="43"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLt-Qn-Iss">
-                                                <rect key="frame" x="360" y="7" width="30" height="30"/>
-                                                <state key="normal" title="Button" image="number2">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IhJ-Ef-Hij">
-                                                <rect key="frame" x="253" y="8" width="30" height="30"/>
-                                                <state key="normal" title="Button" image="number1">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vdT-uV-KHY">
-                                        <rect key="frame" x="179" y="110" width="300" height="300"/>
-                                    </imageView>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TRn-b0-ZZD">
-                                        <rect key="frame" x="180" y="110" width="299" height="300"/>
-                                    </scrollView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.57546497990000001" green="0.57546497990000001" blue="0.57546497990000001" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IhJ-Ef-Hij">
+                                <rect key="frame" x="105" y="67" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="IhJ-Ef-Hij" secondAttribute="height" multiplier="1:1" id="bsW-Wq-TsC"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="number1">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.5179603719839142" green="0.5179603719839142" blue="0.5179603719839142" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="ECA-lH-m8D" secondAttribute="centerX" id="0zT-l9-Gm2"/>
+                            <constraint firstItem="ECA-lH-m8D" firstAttribute="top" secondItem="LR8-gZ-zom" secondAttribute="bottom" id="4Ha-9O-V08"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qSD-Dt-nqx" secondAttribute="trailing" constant="-16" id="688-Xd-VBs"/>
+                            <constraint firstAttribute="centerX" secondItem="TRn-b0-ZZD" secondAttribute="centerX" id="6wE-BB-oW0"/>
+                            <constraint firstItem="pLt-Qn-Iss" firstAttribute="centerY" secondItem="IhJ-Ef-Hij" secondAttribute="centerY" id="BCk-hc-Sl0"/>
+                            <constraint firstItem="ECA-lH-m8D" firstAttribute="leading" secondItem="IEO-Rv-jh4" secondAttribute="leadingMargin" constant="-16" id="BYv-RR-YKN"/>
+                            <constraint firstAttribute="centerX" secondItem="vdT-uV-KHY" secondAttribute="centerX" id="DSN-Mw-yHq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ECA-lH-m8D" secondAttribute="trailing" constant="-16" id="H0W-9G-ueq"/>
+                            <constraint firstAttribute="centerX" secondItem="pLt-Qn-Iss" secondAttribute="centerX" constant="-180" id="Izg-kc-mHf"/>
+                            <constraint firstItem="vdT-uV-KHY" firstAttribute="top" secondItem="ECA-lH-m8D" secondAttribute="bottom" id="LbG-af-dLX"/>
+                            <constraint firstItem="IhJ-Ef-Hij" firstAttribute="top" secondItem="LR8-gZ-zom" secondAttribute="bottom" constant="3" id="NQt-bK-poF"/>
+                            <constraint firstAttribute="centerX" secondItem="qSD-Dt-nqx" secondAttribute="centerX" id="P8b-0t-EJC"/>
+                            <constraint firstItem="Dc6-pe-3Bs" firstAttribute="top" secondItem="aE5-i2-SlH" secondAttribute="bottom" id="REp-ay-zSM"/>
+                            <constraint firstItem="ECA-lH-m8D" firstAttribute="leading" secondItem="IhJ-Ef-Hij" secondAttribute="trailing" constant="-135" id="VCX-9f-MuR"/>
+                            <constraint firstItem="TRn-b0-ZZD" firstAttribute="leading" secondItem="IEO-Rv-jh4" secondAttribute="leadingMargin" constant="-16" id="VWJ-bG-5P6"/>
+                            <constraint firstItem="IhJ-Ef-Hij" firstAttribute="top" secondItem="ECA-lH-m8D" secondAttribute="bottom" constant="-32" id="WsY-Q1-g7G"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pLt-Qn-Iss" secondAttribute="trailing" constant="89" id="X00-11-5JE"/>
+                            <constraint firstItem="aE5-i2-SlH" firstAttribute="leading" secondItem="IEO-Rv-jh4" secondAttribute="leadingMargin" constant="-16" id="Yg3-qg-uky"/>
+                            <constraint firstItem="qSD-Dt-nqx" firstAttribute="leading" secondItem="IEO-Rv-jh4" secondAttribute="leadingMargin" constant="-16" id="cAB-BA-gbE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vdT-uV-KHY" secondAttribute="trailing" constant="-16" id="cfl-5L-5vX"/>
+                            <constraint firstItem="TRn-b0-ZZD" firstAttribute="top" secondItem="ECA-lH-m8D" secondAttribute="bottom" id="dVt-JC-hO9"/>
+                            <constraint firstAttribute="centerX" secondItem="IhJ-Ef-Hij" secondAttribute="centerX" constant="180" id="daJ-nL-QWW"/>
+                            <constraint firstAttribute="centerX" secondItem="qSD-Dt-nqx" secondAttribute="centerX" constant="-0.5" id="egu-lQ-wqX"/>
+                            <constraint firstItem="TRn-b0-ZZD" firstAttribute="top" secondItem="IhJ-Ef-Hij" secondAttribute="bottom" constant="2" id="fVX-54-y5p"/>
+                            <constraint firstItem="IhJ-Ef-Hij" firstAttribute="leading" secondItem="IEO-Rv-jh4" secondAttribute="leadingMargin" constant="89" id="i9V-Sr-BOw"/>
+                            <constraint firstItem="vdT-uV-KHY" firstAttribute="leading" secondItem="IEO-Rv-jh4" secondAttribute="leadingMargin" constant="-16" id="lEf-QS-q3h"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aE5-i2-SlH" secondAttribute="trailing" constant="-16" id="lbW-fd-hOZ"/>
+                            <constraint firstAttribute="centerX" secondItem="aE5-i2-SlH" secondAttribute="centerX" id="nbk-wu-Nd8"/>
+                            <constraint firstItem="pLt-Qn-Iss" firstAttribute="top" secondItem="LR8-gZ-zom" secondAttribute="bottom" constant="3" id="oHu-bo-cfR"/>
+                            <constraint firstItem="TRn-b0-ZZD" firstAttribute="top" secondItem="pLt-Qn-Iss" secondAttribute="bottom" constant="2" id="uti-B8-CCs"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="TRn-b0-ZZD" secondAttribute="trailing" constant="-16" id="wqk-4g-DCO"/>
+                            <constraint firstItem="qSD-Dt-nqx" firstAttribute="top" secondItem="ECA-lH-m8D" secondAttribute="bottom" id="zdJ-Fm-yfR"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="VCX-9f-MuR"/>
+                                <exclude reference="P8b-0t-EJC"/>
+                                <exclude reference="WsY-Q1-g7G"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="PhotoBlender" id="QXS-oP-5bd">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="9ci-9t-VhL">
@@ -364,9 +387,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="1 Circle-64" width="64" height="64"/>
-        <image name="2 Circle-64" width="64" height="64"/>
         <image name="background3" width="743" height="1206"/>
+        <image name="branco" width="600" height="450"/>
         <image name="erase" width="32" height="32"/>
         <image name="number1" width="64" height="64"/>
         <image name="number2" width="64" height="64"/>
