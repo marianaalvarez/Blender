@@ -13,7 +13,8 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     @IBOutlet weak var tabBar: UITabBar!
     var image1 : UIImage?
     var image2 : UIImage?
-    var imageView = UIImageView()
+    
+    @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBAction func cancelButton(sender: AnyObject) {
@@ -25,7 +26,6 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         
         scrollView.delegate = self
         
-        imageView.frame = CGRectMake(0, 0, scrollView.frame.size.width, scrollView.frame.size.height)
         imageView.userInteractionEnabled = true
         
         scrollView.addSubview(imageView)
@@ -33,24 +33,23 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         let image = image2
         
         imageView.image = image
-        imageView.contentMode = UIViewContentMode.Center
-        imageView.frame = CGRectMake(0, 0, image!.size.width, image!.size.height)
+        imageView.contentMode = UIViewContentMode.ScaleAspectFill
+        //imageView.frame = CGRectMake(0, 0, image!.size.width, image!.size.height)
         
-        scrollView.contentSize = image!.size
-        
+        scrollView.contentSize = imageView.image!.size
+
         let scrollViewFrame = scrollView.frame
         let scaleWidth = scrollViewFrame.size.width / scrollView.contentSize.width
         let scaleHeight = scrollViewFrame.size.height / scrollView.contentSize.height
         let minScale = min(scaleHeight, scaleWidth)
-        
-        scrollView.minimumZoomScale = minScale
-        scrollView.maximumZoomScale = 1
-        scrollView.zoomScale = minScale
-        
+
+        scrollView.minimumZoomScale = 1
+        scrollView.maximumZoomScale = 10
+        scrollView.zoomScale = 1
+
         centerScrollViewContents()
         
     }
-    
     
     func centerScrollViewContents(){
         let boundsSize = scrollView.bounds.size

@@ -210,10 +210,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TRn-b0-ZZD">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TRn-b0-ZZD">
                                 <rect key="frame" x="0.0" y="99" width="600" height="600"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Dx-s0-fXf">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="7Dx-s0-fXf" secondAttribute="height" multiplier="1:1" id="HwO-vn-HdB"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="TRn-b0-ZZD" secondAttribute="height" multiplier="1:1" id="0K0-hy-olb"/>
+                                    <constraint firstAttribute="centerX" secondItem="7Dx-s0-fXf" secondAttribute="centerX" id="96a-ag-Zuj"/>
+                                    <constraint firstAttribute="trailing" secondItem="7Dx-s0-fXf" secondAttribute="trailing" id="n5s-fB-uBo"/>
+                                    <constraint firstItem="7Dx-s0-fXf" firstAttribute="leading" secondItem="TRn-b0-ZZD" secondAttribute="leading" id="owg-aj-8Ia"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="KGb-w3-pkN" id="SFM-VW-Zxo"/>
@@ -331,6 +342,7 @@
                             <constraint firstItem="WXZ-Iy-eZn" firstAttribute="centerY" secondItem="pSG-2e-87W" secondAttribute="centerY" constant="0.5" id="hAv-mD-Ac7"/>
                             <constraint firstItem="IhJ-Ef-Hij" firstAttribute="leading" secondItem="IEO-Rv-jh4" secondAttribute="leadingMargin" constant="89" id="i9V-Sr-BOw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="wlG-mS-EcU" secondAttribute="trailing" constant="10" id="j6h-3O-RJb"/>
+                            <constraint firstItem="7Dx-s0-fXf" firstAttribute="top" secondItem="ECA-lH-m8D" secondAttribute="bottom" id="lTN-ws-UuL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="aE5-i2-SlH" secondAttribute="trailing" constant="-16" id="lbW-fd-hOZ"/>
                             <constraint firstAttribute="centerX" secondItem="aE5-i2-SlH" secondAttribute="centerX" id="nbk-wu-Nd8"/>
                             <constraint firstItem="pLt-Qn-Iss" firstAttribute="top" secondItem="LR8-gZ-zom" secondAttribute="bottom" constant="3" id="oHu-bo-cfR"/>
@@ -367,6 +379,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="imageView" destination="7Dx-s0-fXf" id="8ju-PT-CP8"/>
                         <outlet property="scrollView" destination="TRn-b0-ZZD" id="H1s-H1-ax8"/>
                         <outlet property="tabBar" destination="aE5-i2-SlH" id="k5z-UO-sL2"/>
                     </connections>

@@ -77,7 +77,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 backgroundImage.image = pickedImage
                 backgroundSet = true
             } else {
-                foregroundImage.contentMode = UIViewContentMode.ScaleToFill
+                foregroundImage.contentMode = UIViewContentMode.ScaleAspectFill
                 foregroundImage.image = pickedImage
                 foregroundSet = true
             }
