@@ -11,12 +11,40 @@ import UIKit
 class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelegate {
 
     @IBOutlet weak var tabBar: UITabBar!
+    @IBOutlet weak var backgroundImage: UIImageView!
+    @IBOutlet weak var foregroundImage: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var backgroundButton: UIButton!
+    @IBOutlet weak var foregroundButton: UIButton!
+    var isBackgroundSelected : Bool?
+    var isForegroundSelected : Bool?
     var image1 : UIImage?
     var image2 : UIImage?
     
-    @IBOutlet weak var imageView: UIImageView!
+    @IBAction func backgroundSelected(sender: AnyObject) {
+        if isBackgroundSelected == true {
+            isBackgroundSelected = false
+            backgroundImage.userInteractionEnabled = false
+            backgroundButton.setImage(UIImage(named: "number1"), forState: .Normal)
+        } else {
+            isBackgroundSelected = true
+            backgroundImage.userInteractionEnabled = true
+            backgroundButton.setImage(UIImage(named: "number1selected"), forState: .Normal)
+        }
+    }
     
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBAction func foregorundSelected(sender: AnyObject) {
+        if isForegroundSelected == true {
+            isForegroundSelected = false
+            foregroundImage.userInteractionEnabled = false
+            foregroundButton.setImage(UIImage(named: "number2"), forState: .Normal)
+        } else {
+            isForegroundSelected = true
+            foregroundImage.userInteractionEnabled = true
+            foregroundButton.setImage(UIImage(named: "number2selected"), forState: .Normal)
+        }
+    }
+
     @IBAction func cancelButton(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -24,24 +52,23 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        isBackgroundSelected = true
+        isForegroundSelected = false
+        backgroundButton.setImage(UIImage(named: "number1selected"), forState: .Normal)
+        foregroundButton.setImage(UIImage(named: "number2"), forState: .Normal)
+        
         scrollView.delegate = self
         
-        imageView.userInteractionEnabled = true
+        backgroundImage.userInteractionEnabled = true
+        foregroundImage.userInteractionEnabled = false
         
-        scrollView.addSubview(imageView)
+        scrollView.addSubview(backgroundImage)
         
-        let image = image2
+        let image = image1
         
-        imageView.image = image
-        imageView.contentMode = UIViewContentMode.ScaleAspectFill
-        //imageView.frame = CGRectMake(0, 0, image!.size.width, image!.size.height)
+        backgroundImage.image = image
         
-        scrollView.contentSize = imageView.image!.size
-
-        let scrollViewFrame = scrollView.frame
-        let scaleWidth = scrollViewFrame.size.width / scrollView.contentSize.width
-        let scaleHeight = scrollViewFrame.size.height / scrollView.contentSize.height
-        let minScale = min(scaleHeight, scaleWidth)
+        scrollView.contentSize = backgroundImage.image!.size
 
         scrollView.minimumZoomScale = 1
         scrollView.maximumZoomScale = 10
@@ -53,22 +80,44 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     
     func centerScrollViewContents(){
         let boundsSize = scrollView.bounds.size
-        var contentsFrame = imageView.frame
         
-        if contentsFrame.size.width < boundsSize.width{
-            contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2
-        }else{
-            contentsFrame.origin.x = 0
-        }
+        if isBackgroundSelected == true {
+            var contentsFrame = backgroundImage.frame
         
-        if contentsFrame.size.height < boundsSize.height {
+            if contentsFrame.size.width < boundsSize.width{
+                contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2
+            }else{
+                contentsFrame.origin.x = 0
+            }
+        
+            if contentsFrame.size.height < boundsSize.height {
             
-            contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2
-        }else{
-            contentsFrame.origin.y = 0
+                contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2
+            }else{
+                contentsFrame.origin.y = 0
+            }
+        
+            backgroundImage.frame = contentsFrame
         }
         
-        imageView.frame = contentsFrame
+        if isForegroundSelected == true {
+            var contentsFrame = foregroundImage.frame
+            
+            if contentsFrame.size.width < boundsSize.width{
+                contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2
+            }else{
+                contentsFrame.origin.x = 0
+            }
+            
+            if contentsFrame.size.height < boundsSize.height {
+                
+                contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2
+            }else{
+                contentsFrame.origin.y = 0
+            }
+            
+            foregroundImage.frame = contentsFrame
+        }
         
     }
     
@@ -77,7 +126,13 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        return imageView
+        if (isBackgroundSelected == true) {
+            return backgroundImage
+        }
+        if (isForegroundSelected == true) {
+            return foregroundImage
+        }
+        return nil
     }
     
     override func didReceiveMemoryWarning() {

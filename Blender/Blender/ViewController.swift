@@ -73,11 +73,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             if selectedImage == 1 {
-                backgroundImage.contentMode = .ScaleToFill
+                backgroundImage.contentMode = .ScaleAspectFill
                 backgroundImage.image = pickedImage
                 backgroundSet = true
             } else {
-                foregroundImage.contentMode = UIViewContentMode.ScaleAspectFill
+                foregroundImage.contentMode = .ScaleAspectFill
                 foregroundImage.image = pickedImage
                 foregroundSet = true
             }
