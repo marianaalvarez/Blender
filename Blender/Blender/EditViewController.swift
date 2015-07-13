@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import CoreImage
+import CoreGraphics
+import Foundation
 
-class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelegate {
+
+class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelegate  {
 
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var whiteLayer: UIImageView!
@@ -17,21 +21,28 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var backgroundButton: UIButton!
     @IBOutlet weak var foregroundButton: UIButton!
+    @IBOutlet weak var sliderBlender: UISlider!
+    @IBOutlet weak var sliderBrightness: UISlider!
+    @IBOutlet weak var sliderContrast: UISlider!
+    
     let panGesture = UIPanGestureRecognizer()
     let pinchGesture = UIPinchGestureRecognizer()
     var isBackgroundSelected : Bool?
     var isForegroundSelected : Bool?
     var image1 : UIImage?
     var image2 : UIImage?
+    var context: CIContext!
+    var brightness: CIFilter!
+    var beginImage: CIImage!
+    var orientation: UIImageOrientation = .Up
+    
     
     @IBAction func backgroundSelected(sender: AnyObject) {
         if isBackgroundSelected == true {
             isBackgroundSelected = false
-            //backgroundImage.userInteractionEnabled = false
             backgroundButton.setImage(UIImage(named: "number1"), forState: .Normal)
         } else {
             isBackgroundSelected = true
-            //backgroundImage.userInteractionEnabled = true
             backgroundButton.setImage(UIImage(named: "number1selected"), forState: .Normal)
         }
     }
@@ -52,8 +63,29 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    @IBAction func sliderBlenderAction(sender: AnyObject) {
+        
+    }
+    
+    @IBAction func sliderBrightness(sender: UISlider) {
+        
+        let sliderValue = sender.value
+        
+        let outputImage = self.oldPhoto(beginImage, withAmount: sliderValue)
+        
+        let cgimg = context.createCGImage(outputImage, fromRect: outputImage.extent())
+        
+        let newImage = UIImage(CGImage: cgimg, scale:1, orientation:orientation)
+        backgroundImage.image = newImage
+        
+    }
+    
+    @IBAction func sliderContrastAction(sender: AnyObject) {
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBar.delegate = self
         scrollView.delegate = self
         
         isBackgroundSelected = true
@@ -79,11 +111,13 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         scrollView.zoomScale = 1
         
         panGesture.addTarget(self, action: "draggedImage:")
-        foregroundImage.addGestureRecognizer(panGesture)
-        
         pinchGesture.addTarget(self, action: "pinchedImage:")
-        foregroundImage.addGestureRecognizer(pinchGesture)
         foregroundImage.multipleTouchEnabled = true
+        
+        beginImage = CIImage(CGImage: backgroundImage.image!.CGImage)
+
+        context = CIContext(options:nil)
+        self.logAllFilters()
         
     }
     
@@ -116,13 +150,41 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {
         if (item.tag == 0) {
             println("zero")
+            foregroundImage.addGestureRecognizer(panGesture)
+            foregroundImage.addGestureRecognizer(pinchGesture)
         }
         if (item.tag == 1) {
             println("um")
+            foregroundImage.gestureRecognizers?.removeAll(keepCapacity: false)
         }
         if (item.tag == 2) {
             println("dois")
         }
+        if (item.tag == 3) {
+            println("tres")
+        }
     }
+    
+    
+    func logAllFilters() {
+        
+        let properties = CIFilter.filterNamesInCategory(
+            kCICategoryBuiltIn)
+        println(properties)
+        
+        for filterName: AnyObject in properties {
+            let fltr = CIFilter(name:filterName as! String)
+            println(fltr.attributes())
+        }
+    }
+    
+    func oldPhoto(image: CIImage, withAmount intensity: Float) -> CIImage {
+        
+        let brightness = CIFilter(name:"CIColorControls")
+        brightness.setValue(image, forKey:kCIInputImageKey)
+        brightness.setValue(intensity, forKey:"inputBrightness")
+        return brightness.outputImage
+    }
+
     
 }

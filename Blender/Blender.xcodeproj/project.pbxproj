@@ -14,6 +14,8 @@
 		058522E71B42FC900057AEE4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 058522E51B42FC900057AEE4 /* LaunchScreen.xib */; };
 		058522F31B42FC900057AEE4 /* BlenderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058522F21B42FC900057AEE4 /* BlenderTests.swift */; };
 		05F81BEE1B462E0700104029 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F81BED1B462E0700104029 /* EditViewController.swift */; };
+		05F81BF01B5339CA00104029 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05F81BEF1B5339CA00104029 /* CoreImage.framework */; };
+		05F81BF21B5339D200104029 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05F81BF11B5339D200104029 /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,8 @@
 		058522F11B42FC900057AEE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		058522F21B42FC900057AEE4 /* BlenderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlenderTests.swift; sourceTree = "<group>"; };
 		05F81BED1B462E0700104029 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		05F81BEF1B5339CA00104029 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		05F81BF11B5339D200104029 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +49,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05F81BF21B5339D200104029 /* CoreGraphics.framework in Frameworks */,
+				05F81BF01B5339CA00104029 /* CoreImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +67,8 @@
 		058522CE1B42FC900057AEE4 = {
 			isa = PBXGroup;
 			children = (
+				05F81BF11B5339D200104029 /* CoreGraphics.framework */,
+				05F81BEF1B5339CA00104029 /* CoreImage.framework */,
 				058522D91B42FC900057AEE4 /* Blender */,
 				058522EF1B42FC900057AEE4 /* BlenderTests */,
 				058522D81B42FC900057AEE4 /* Products */,
