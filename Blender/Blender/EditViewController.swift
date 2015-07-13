@@ -11,11 +11,14 @@ import UIKit
 class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelegate {
 
     @IBOutlet weak var tabBar: UITabBar!
+    @IBOutlet weak var whiteLayer: UIImageView!
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var foregroundImage: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var backgroundButton: UIButton!
     @IBOutlet weak var foregroundButton: UIButton!
+    let panGesture = UIPanGestureRecognizer()
+    let pinchGesture = UIPinchGestureRecognizer()
     var isBackgroundSelected : Bool?
     var isForegroundSelected : Bool?
     var image1 : UIImage?
@@ -24,11 +27,11 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     @IBAction func backgroundSelected(sender: AnyObject) {
         if isBackgroundSelected == true {
             isBackgroundSelected = false
-            backgroundImage.userInteractionEnabled = false
+            //backgroundImage.userInteractionEnabled = false
             backgroundButton.setImage(UIImage(named: "number1"), forState: .Normal)
         } else {
             isBackgroundSelected = true
-            backgroundImage.userInteractionEnabled = true
+            //backgroundImage.userInteractionEnabled = true
             backgroundButton.setImage(UIImage(named: "number1selected"), forState: .Normal)
         }
     }
@@ -36,11 +39,11 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     @IBAction func foregorundSelected(sender: AnyObject) {
         if isForegroundSelected == true {
             isForegroundSelected = false
-            foregroundImage.userInteractionEnabled = false
+            //foregroundImage.userInteractionEnabled = false
             foregroundButton.setImage(UIImage(named: "number2"), forState: .Normal)
         } else {
             isForegroundSelected = true
-            foregroundImage.userInteractionEnabled = true
+            //foregroundImage.userInteractionEnabled = true
             foregroundButton.setImage(UIImage(named: "number2selected"), forState: .Normal)
         }
     }
@@ -51,88 +54,58 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView.delegate = self
         
         isBackgroundSelected = true
         isForegroundSelected = false
+        
         backgroundButton.setImage(UIImage(named: "number1selected"), forState: .Normal)
         foregroundButton.setImage(UIImage(named: "number2"), forState: .Normal)
-        
-        scrollView.delegate = self
-        
         backgroundImage.userInteractionEnabled = true
-        foregroundImage.userInteractionEnabled = false
+        foregroundImage.userInteractionEnabled = true
+        whiteLayer.contentMode = .ScaleAspectFill
+        backgroundImage.contentMode = .ScaleAspectFill
+        foregroundImage.contentMode = .ScaleAspectFill
         
+        backgroundImage.image = image1
+        foregroundImage.image = image2
+        foregroundImage.alpha = 0.5
+        
+        scrollView.addSubview(whiteLayer)
         scrollView.addSubview(backgroundImage)
-        
-        let image = image1
-        
-        backgroundImage.image = image
+        scrollView.addSubview(foregroundImage)
         
         scrollView.contentSize = backgroundImage.image!.size
-
-        scrollView.minimumZoomScale = 1
-        scrollView.maximumZoomScale = 10
         scrollView.zoomScale = 1
-
-        centerScrollViewContents()
+        
+        panGesture.addTarget(self, action: "draggedImage:")
+        foregroundImage.addGestureRecognizer(panGesture)
+        
+        pinchGesture.addTarget(self, action: "pinchedImage:")
+        foregroundImage.addGestureRecognizer(pinchGesture)
+        foregroundImage.multipleTouchEnabled = true
         
     }
     
-    func centerScrollViewContents(){
-        let boundsSize = scrollView.bounds.size
-        
-        if isBackgroundSelected == true {
-            var contentsFrame = backgroundImage.frame
-        
-            if contentsFrame.size.width < boundsSize.width{
-                contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2
-            }else{
-                contentsFrame.origin.x = 0
-            }
-        
-            if contentsFrame.size.height < boundsSize.height {
-            
-                contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2
-            }else{
-                contentsFrame.origin.y = 0
-            }
-        
-            backgroundImage.frame = contentsFrame
-        }
-        
-        if isForegroundSelected == true {
-            var contentsFrame = foregroundImage.frame
-            
-            if contentsFrame.size.width < boundsSize.width{
-                contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2
-            }else{
-                contentsFrame.origin.x = 0
-            }
-            
-            if contentsFrame.size.height < boundsSize.height {
-                
-                contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2
-            }else{
-                contentsFrame.origin.y = 0
-            }
-            
-            foregroundImage.frame = contentsFrame
-        }
-        
-    }
-    
-    func scrollViewDidZoom(scrollView: UIScrollView) {
-        centerScrollViewContents()
-    }
-    
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func draggedImage(sender: UIPanGestureRecognizer) {
+        var translation = sender.translationInView(self.view)
         if (isBackgroundSelected == true) {
-            return backgroundImage
+            backgroundImage.center = CGPointMake(backgroundImage.center.x + translation.x, backgroundImage.center.y + translation.y)
         }
         if (isForegroundSelected == true) {
-            return foregroundImage
+            foregroundImage.center = CGPointMake(foregroundImage.center.x + translation.x, foregroundImage.center.y + translation.y)
         }
-        return nil
+        sender.setTranslation(CGPointZero, inView: self.view)
+    }
+    
+    func pinchedImage(sender: UIPinchGestureRecognizer){
+        if (isBackgroundSelected == true) {
+            backgroundImage.transform = CGAffineTransformScale(backgroundImage.transform, sender.scale, sender.scale)
+        }
+        if (isForegroundSelected == true) {
+            foregroundImage.transform = CGAffineTransformScale(foregroundImage.transform, sender.scale, sender.scale)
+        }
+        sender.scale = 1.0
     }
     
     override func didReceiveMemoryWarning() {
@@ -151,6 +124,5 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
             println("dois")
         }
     }
-    
     
 }

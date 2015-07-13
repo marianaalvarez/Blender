@@ -213,6 +213,12 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRn-b0-ZZD">
                                 <rect key="frame" x="0.0" y="99" width="600" height="600"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="branco" translatesAutoresizingMaskIntoConstraints="NO" id="mot-4y-AdT">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="mot-4y-AdT" secondAttribute="height" multiplier="1:1" id="Oxf-as-7jN"/>
+                                        </constraints>
+                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Dx-s0-fXf">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <constraints>
@@ -230,7 +236,10 @@
                                     <constraint firstAttribute="width" secondItem="TRn-b0-ZZD" secondAttribute="height" multiplier="1:1" id="0K0-hy-olb"/>
                                     <constraint firstAttribute="centerX" secondItem="7Dx-s0-fXf" secondAttribute="centerX" id="96a-ag-Zuj"/>
                                     <constraint firstAttribute="trailing" secondItem="JFf-FR-TdN" secondAttribute="trailing" id="Hjw-ba-xz1"/>
+                                    <constraint firstAttribute="centerX" secondItem="mot-4y-AdT" secondAttribute="centerX" id="P3D-gO-fsh"/>
                                     <constraint firstItem="JFf-FR-TdN" firstAttribute="leading" secondItem="TRn-b0-ZZD" secondAttribute="leading" id="VzL-OC-qRg"/>
+                                    <constraint firstItem="mot-4y-AdT" firstAttribute="leading" secondItem="TRn-b0-ZZD" secondAttribute="leading" id="XOU-u8-MYU"/>
+                                    <constraint firstAttribute="trailing" secondItem="mot-4y-AdT" secondAttribute="trailing" id="ZV0-9r-urZ"/>
                                     <constraint firstAttribute="trailing" secondItem="7Dx-s0-fXf" secondAttribute="trailing" id="n5s-fB-uBo"/>
                                     <constraint firstItem="7Dx-s0-fXf" firstAttribute="leading" secondItem="TRn-b0-ZZD" secondAttribute="leading" id="owg-aj-8Ia"/>
                                     <constraint firstAttribute="centerX" secondItem="JFf-FR-TdN" secondAttribute="centerX" id="oxd-sT-eNJ"/>
@@ -240,12 +249,12 @@
                                 </connections>
                             </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brightness" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w9H-ZW-t7l">
-                                <rect key="frame" x="16" y="484" width="82" height="21"/>
+                                <rect key="frame" x="16" y="484.5" width="82" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Blender" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pSG-2e-87W">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blender" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pSG-2e-87W">
                                 <rect key="frame" x="16" y="452" width="60" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -261,12 +270,12 @@
                                 <rect key="frame" x="114.5" y="512" width="461.5" height="31"/>
                                 <color key="tintColor" red="1" green="0.39997637271881104" blue="0.61530852317810059" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="WXZ-Iy-eZn">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="WXZ-Iy-eZn">
                                 <rect key="frame" x="115" y="448" width="461" height="31"/>
                                 <color key="tintColor" red="1" green="0.39997637270000003" blue="0.61530852319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="wHz-uz-lEt">
-                                <rect key="frame" x="115" y="480" width="461" height="31"/>
+                                <rect key="frame" x="115" y="480.5" width="461" height="31"/>
                                 <color key="tintColor" red="1" green="0.39997637270000003" blue="0.61530852319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </slider>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="branco" translatesAutoresizingMaskIntoConstraints="NO" id="ECA-lH-m8D">
@@ -329,6 +338,7 @@
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="ECA-lH-m8D" secondAttribute="centerX" id="0zT-l9-Gm2"/>
                             <constraint firstItem="aE5-i2-SlH" firstAttribute="top" secondItem="D7j-QV-OZx" secondAttribute="bottom" constant="14" id="2em-Kp-eCe"/>
+                            <constraint firstItem="mot-4y-AdT" firstAttribute="top" secondItem="ECA-lH-m8D" secondAttribute="bottom" id="2hn-t9-CRb"/>
                             <constraint firstItem="D7j-QV-OZx" firstAttribute="leading" secondItem="IEO-Rv-jh4" secondAttribute="leadingMargin" id="3SF-UF-6zP"/>
                             <constraint firstItem="ECA-lH-m8D" firstAttribute="top" secondItem="LR8-gZ-zom" secondAttribute="bottom" id="4Ha-9O-V08"/>
                             <constraint firstAttribute="centerX" secondItem="TRn-b0-ZZD" secondAttribute="centerX" id="6wE-BB-oW0"/>
@@ -403,6 +413,7 @@
                         <outlet property="foregroundImage" destination="JFf-FR-TdN" id="slO-nh-aFs"/>
                         <outlet property="scrollView" destination="TRn-b0-ZZD" id="H1s-H1-ax8"/>
                         <outlet property="tabBar" destination="aE5-i2-SlH" id="k5z-UO-sL2"/>
+                        <outlet property="whiteLayer" destination="mot-4y-AdT" id="28O-Er-OBb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5K8-IU-Kyl" userLabel="First Responder" sceneMemberID="firstResponder"/>
