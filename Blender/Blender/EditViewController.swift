@@ -63,15 +63,17 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    @IBAction func sliderBlenderAction(sender: AnyObject) {
-        
+    @IBAction func sliderBlenderAction(sender: UISlider) {
+        foregroundImage.alpha = CGFloat(sender.value)
     }
     
     @IBAction func sliderBrightness(sender: UISlider) {
         
-        let sliderValue = sender.value
+        let brightness = CIFilter(name:"CIColorControls")
+        brightness.setValue(beginImage, forKey:kCIInputImageKey)
+        brightness.setValue(sender.value, forKey:"inputBrightness")
         
-        let outputImage = self.oldPhoto(beginImage, withAmount: sliderValue)
+        let outputImage = brightness.outputImage
         
         let cgimg = context.createCGImage(outputImage, fromRect: outputImage.extent())
         
@@ -80,7 +82,17 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         
     }
     
-    @IBAction func sliderContrastAction(sender: AnyObject) {
+    @IBAction func sliderContrastAction(sender: UISlider) {
+        let brightness = CIFilter(name:"CIColorControls")
+        brightness.setValue(beginImage, forKey:kCIInputImageKey)
+        brightness.setValue(sender.value, forKey:"inputContrast")
+        
+        let outputImage = brightness.outputImage
+        
+        let cgimg = context.createCGImage(outputImage, fromRect: outputImage.extent())
+        
+        let newImage = UIImage(CGImage: cgimg, scale:1, orientation:orientation)
+        backgroundImage.image = newImage
         
     }
     override func viewDidLoad() {
@@ -117,7 +129,6 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         beginImage = CIImage(CGImage: backgroundImage.image!.CGImage)
 
         context = CIContext(options:nil)
-        self.logAllFilters()
         
     }
     
@@ -164,27 +175,5 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
             println("tres")
         }
     }
-    
-    
-    func logAllFilters() {
-        
-        let properties = CIFilter.filterNamesInCategory(
-            kCICategoryBuiltIn)
-        println(properties)
-        
-        for filterName: AnyObject in properties {
-            let fltr = CIFilter(name:filterName as! String)
-            println(fltr.attributes())
-        }
-    }
-    
-    func oldPhoto(image: CIImage, withAmount intensity: Float) -> CIImage {
-        
-        let brightness = CIFilter(name:"CIColorControls")
-        brightness.setValue(image, forKey:kCIInputImageKey)
-        brightness.setValue(intensity, forKey:"inputBrightness")
-        return brightness.outputImage
-    }
-
     
 }
