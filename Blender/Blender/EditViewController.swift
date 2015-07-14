@@ -27,6 +27,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     
     let panGesture = UIPanGestureRecognizer()
     let pinchGesture = UIPinchGestureRecognizer()
+    let eraser = UIPanGestureRecognizer()
     var isBackgroundSelected : Bool?
     var isForegroundSelected : Bool?
     var image1 : UIImage?
@@ -124,6 +125,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         
         panGesture.addTarget(self, action: "draggedImage:")
         pinchGesture.addTarget(self, action: "pinchedImage:")
+        eraser.addTarget(self, action: "eraseImage:")
         foregroundImage.multipleTouchEnabled = true
         
         beginImage = CIImage(CGImage: backgroundImage.image!.CGImage)
@@ -167,6 +169,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         if (item.tag == 1) {
             println("um")
             foregroundImage.gestureRecognizers?.removeAll(keepCapacity: false)
+            foregroundImage.addGestureRecognizer(eraser)
         }
         if (item.tag == 2) {
             println("dois")
@@ -174,6 +177,22 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         if (item.tag == 3) {
             println("tres")
         }
+    }
+    
+    func eraseImage(sender: UIPanGestureRecognizer) {
+        var location = sender.locationInView(foregroundImage)
+        foregroundImage.image = self.eraseImageAtPoint(location, imageView: foregroundImage, eraser: foregroundImage.image!)
+    }
+       
+    func eraseImageAtPoint(point: CGPoint, imageView: UIImageView, eraser: UIImage) -> UIImage {
+        UIGraphicsBeginImageContext(imageView.frame.size)
+        eraser.drawInRect(CGRectMake(0, 0, imageView.frame.size.width, imageView.frame.size.height))
+        
+        eraser.drawAtPoint(point, blendMode: kCGBlendModeDestinationOut, alpha: 0.5)
+        var image : UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext();
+        
+        return image;
     }
     
 }
