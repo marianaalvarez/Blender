@@ -39,10 +39,12 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     var brightnessImage: CIImage!
     var contrastValue: Float!
     var brightnessValue: Float!
+    var blenderValue: Float!
     var orientation: UIImageOrientation = .Up
     var currentPoint: CGPoint?
     var lastPoint: CGPoint?
     var colorControls: CIFilter?
+    var images = [NSDictionary]()
     
     @IBAction func backgroundSelected(sender: AnyObject) {
         if isBackgroundSelected == true {
@@ -71,7 +73,8 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     }
     
     @IBAction func sliderBlenderAction(sender: UISlider) {
-        foregroundImage.alpha = CGFloat(sender.value)
+        blenderValue = sender.value
+        foregroundImage.alpha = CGFloat(blenderValue)
     }
     
     @IBAction func slider(sender: UISlider) {
@@ -99,6 +102,16 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         
     }
     
+    @IBAction func stopEditing(sender: AnyObject) {
+        println("acabou")
+        if images.count == 10 {
+            images.removeAtIndex(0)
+            println("10")
+        }
+        var dictionary : [String: AnyObject] = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValue" : brightnessValue, "contrastValue" : contrastValue]
+        images.append(dictionary)
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,6 +151,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         
         brightnessValue = 0
         contrastValue = 1
+        blenderValue = 0.5
 
         context = CIContext(options:nil)
         
@@ -185,6 +199,14 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         }
         if (item.tag == 3) {
             println("tres")
+            if !images.isEmpty {
+                var dictionary = images.removeLast()
+                backgroundImage.image = dictionary.valueForKey("background") as? UIImage
+                foregroundImage.image = dictionary.valueForKey("foreground") as? UIImage
+                sliderBlender.setValue(dictionary.valueForKey("blenderValue") as! Float, animated: true)
+                sliderBrightness.setValue(dictionary.valueForKey("brightnessValue") as! Float, animated: true)
+                sliderContrast.setValue(dictionary.valueForKey("contrastValue") as! Float, animated: true)
+            }
         }
     }
     
@@ -225,39 +247,10 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         UIGraphicsEndImageContext();
         
         lastPoint = currentPoint
-        
-        
-      
-      
-//        eraser.drawAtPoint(point, blendMode: kCGBlendModeDestinationOut, alpha: 0.5)
-//        var image : UIImage = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext();
-//        
-//        return image;
     }
     
-//    func drawLineFrom(fromPoint: CGPoint, toPoint: CGPoint) {
-//            
-//            UIGraphicsBeginImageContext(foregroundImage.frame.size);
-//            let context = UIGraphicsGetCurrentContext()
-//            foregroundImage.image!.drawInRect(CGRectMake(0, 0, foregroundImage.frame.size.width, foregroundImage.frame.size.height))
-//            
-//            CGContextMoveToPoint(context, fromPoint.x, fromPoint.y)
-//            CGContextAddLineToPoint(context, toPoint.x, toPoint.y)
-//            
-//            CGContextSaveGState(UIGraphicsGetCurrentContext());
-//            CGContextSetShouldAntialias(UIGraphicsGetCurrentContext(), true);
-//            CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-//            CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 25.0);
-//            CGContextSetShadowWithColor(UIGraphicsGetCurrentContext(), CGSizeMake(0, 0), 50, UIColor.whiteColor().CGColor);
-//        
-//        
-//            CGContextStrokePath(context)
-//            
-//            // 5
-//            foregroundImage.image = UIGraphicsGetImageFromCurrentImageContext()
-//            UIGraphicsEndImageContext()
-//            
-//        }
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        println("tocou")
+    }
 
 }
