@@ -266,11 +266,11 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.80000000000000004" maxValue="1.2" translatesAutoresizingMaskIntoConstraints="NO" id="wlG-mS-EcU">
+                            <slider opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.80000000000000004" maxValue="1.2" translatesAutoresizingMaskIntoConstraints="NO" id="wlG-mS-EcU">
                                 <rect key="frame" x="114.5" y="512" width="461.5" height="31"/>
                                 <color key="tintColor" red="1" green="0.39997637271881104" blue="0.61530852317810059" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <action selector="sliderContrastAction:" destination="KGb-w3-pkN" eventType="valueChanged" id="rhF-VH-FFh"/>
+                                    <action selector="slider:" destination="KGb-w3-pkN" eventType="valueChanged" id="qm0-9M-uhw"/>
                                 </connections>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="WXZ-Iy-eZn">
@@ -280,11 +280,11 @@
                                     <action selector="sliderBlenderAction:" destination="KGb-w3-pkN" eventType="valueChanged" id="zLN-7s-cXD"/>
                                 </connections>
                             </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-0.10000000000000001" maxValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="wHz-uz-lEt">
+                            <slider opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-0.10000000000000001" maxValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="wHz-uz-lEt">
                                 <rect key="frame" x="115" y="480.5" width="461" height="31"/>
                                 <color key="tintColor" red="1" green="0.39997637270000003" blue="0.61530852319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <action selector="sliderBrightness:" destination="KGb-w3-pkN" eventType="valueChanged" id="JDn-JD-pWf"/>
+                                    <action selector="slider:" destination="KGb-w3-pkN" eventType="valueChanged" id="zQ9-ML-LND"/>
                                 </connections>
                             </slider>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="branco" translatesAutoresizingMaskIntoConstraints="NO" id="ECA-lH-m8D">

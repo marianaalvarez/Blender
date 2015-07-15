@@ -28,15 +28,21 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     let panGesture = UIPanGestureRecognizer()
     let pinchGesture = UIPinchGestureRecognizer()
     let eraser = UIPanGestureRecognizer()
-    var isBackgroundSelected : Bool?
-    var isForegroundSelected : Bool?
-    var image1 : UIImage?
-    var image2 : UIImage?
+    var isBackgroundSelected: Bool?
+    var isForegroundSelected: Bool?
+    var image1: UIImage?
+    var image2: UIImage?
     var context: CIContext!
     var brightness: CIFilter!
     var beginImage: CIImage!
+    var contrastImage: CIImage!
+    var brightnessImage: CIImage!
+    var contrastValue: Float!
+    var brightnessValue: Float!
     var orientation: UIImageOrientation = .Up
-    
+    var currentPoint: CGPoint?
+    var lastPoint: CGPoint?
+    var colorControls: CIFilter?
     
     @IBAction func backgroundSelected(sender: AnyObject) {
         if isBackgroundSelected == true {
@@ -68,13 +74,23 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         foregroundImage.alpha = CGFloat(sender.value)
     }
     
-    @IBAction func sliderBrightness(sender: UISlider) {
+    @IBAction func slider(sender: UISlider) {
+        if sender.tag == 1 {
+            brightnessValue = sender.value
+        } else {
+            contrastValue = sender.value
+        }
         
-        let brightness = CIFilter(name:"CIColorControls")
-        brightness.setValue(beginImage, forKey:kCIInputImageKey)
-        brightness.setValue(sender.value, forKey:"inputBrightness")
+        var image = CIImage(CGImage: backgroundImage.image!.CGImage)
+        if colorControls == nil {
+            colorControls = CIFilter(name:"CIColorControls")
+        }
+        colorControls!.setValue(beginImage, forKey:kCIInputImageKey)
+        colorControls!.setValue(contrastValue, forKey:"inputContrast")
+        colorControls!.setValue(brightnessValue, forKey:"inputBrightness")
         
-        let outputImage = brightness.outputImage
+        
+        let outputImage = colorControls!.outputImage
         
         let cgimg = context.createCGImage(outputImage, fromRect: outputImage.extent())
         
@@ -83,19 +99,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         
     }
     
-    @IBAction func sliderContrastAction(sender: UISlider) {
-        let brightness = CIFilter(name:"CIColorControls")
-        brightness.setValue(beginImage, forKey:kCIInputImageKey)
-        brightness.setValue(sender.value, forKey:"inputContrast")
-        
-        let outputImage = brightness.outputImage
-        
-        let cgimg = context.createCGImage(outputImage, fromRect: outputImage.extent())
-        
-        let newImage = UIImage(CGImage: cgimg, scale:1, orientation:orientation)
-        backgroundImage.image = newImage
-        
-    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.delegate = self
@@ -129,6 +133,11 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         foregroundImage.multipleTouchEnabled = true
         
         beginImage = CIImage(CGImage: backgroundImage.image!.CGImage)
+        contrastImage = CIImage(CGImage: backgroundImage.image!.CGImage)
+        brightnessImage = CIImage(CGImage: backgroundImage.image!.CGImage)
+        
+        brightnessValue = 0
+        contrastValue = 1
 
         context = CIContext(options:nil)
         
@@ -180,19 +189,75 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     }
     
     func eraseImage(sender: UIPanGestureRecognizer) {
+        
         var location = sender.locationInView(foregroundImage)
-        foregroundImage.image = self.eraseImageAtPoint(location, imageView: foregroundImage, eraser: foregroundImage.image!)
-    }
-       
-    func eraseImageAtPoint(point: CGPoint, imageView: UIImageView, eraser: UIImage) -> UIImage {
-        UIGraphicsBeginImageContext(imageView.frame.size)
-        eraser.drawInRect(CGRectMake(0, 0, imageView.frame.size.width, imageView.frame.size.height))
-        
-        eraser.drawAtPoint(point, blendMode: kCGBlendModeDestinationOut, alpha: 0.5)
-        var image : UIImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext();
-        
-        return image;
+        self.eraseImageAtPoint(location, imageView: foregroundImage, eraser: foregroundImage.image!)
     }
     
+    func eraseImageAtPoint(point: CGPoint, imageView: UIImageView, eraser: UIImage) {
+        
+        if lastPoint == nil {
+            lastPoint = point
+        }
+        
+        currentPoint = point
+        
+        UIGraphicsBeginImageContext(imageView.frame.size);
+        imageView.image!.drawInRect(CGRectMake(0, 0, imageView.frame.size.width, imageView.frame.size.height))
+        
+        CGContextSaveGState(UIGraphicsGetCurrentContext());
+        CGContextSetShouldAntialias(UIGraphicsGetCurrentContext(), true);
+        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 25.0);
+        CGContextSetShadowWithColor(UIGraphicsGetCurrentContext(), CGSizeMake(0, 0), 50, UIColor.whiteColor().CGColor);
+
+        
+        var path = CGPathCreateMutable();
+        CGPathMoveToPoint(path, nil, point.x, point.y);
+        CGPathAddLineToPoint(path, nil, currentPoint!.x, currentPoint!.y);
+        CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeClear);
+        CGContextAddPath(UIGraphicsGetCurrentContext(), path);
+        CGContextStrokePath(UIGraphicsGetCurrentContext());
+        
+        //eraser.drawAtPoint(point, blendMode: kCGBlendModeDestinationOut, alpha: 0.5)
+        imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+        CGContextRestoreGState(UIGraphicsGetCurrentContext());
+        UIGraphicsEndImageContext();
+        
+        lastPoint = currentPoint
+        
+        
+      
+      
+//        eraser.drawAtPoint(point, blendMode: kCGBlendModeDestinationOut, alpha: 0.5)
+//        var image : UIImage = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext();
+//        
+//        return image;
+    }
+    
+//    func drawLineFrom(fromPoint: CGPoint, toPoint: CGPoint) {
+//            
+//            UIGraphicsBeginImageContext(foregroundImage.frame.size);
+//            let context = UIGraphicsGetCurrentContext()
+//            foregroundImage.image!.drawInRect(CGRectMake(0, 0, foregroundImage.frame.size.width, foregroundImage.frame.size.height))
+//            
+//            CGContextMoveToPoint(context, fromPoint.x, fromPoint.y)
+//            CGContextAddLineToPoint(context, toPoint.x, toPoint.y)
+//            
+//            CGContextSaveGState(UIGraphicsGetCurrentContext());
+//            CGContextSetShouldAntialias(UIGraphicsGetCurrentContext(), true);
+//            CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+//            CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 25.0);
+//            CGContextSetShadowWithColor(UIGraphicsGetCurrentContext(), CGSizeMake(0, 0), 50, UIColor.whiteColor().CGColor);
+//        
+//        
+//            CGContextStrokePath(context)
+//            
+//            // 5
+//            foregroundImage.image = UIGraphicsGetImageFromCurrentImageContext()
+//            UIGraphicsEndImageContext()
+//            
+//        }
+
 }
