@@ -45,6 +45,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     var lastPoint: CGPoint?
     var colorControls: CIFilter?
     var images = [NSDictionary]()
+    var dictionary : [String: AnyObject]!
     
     @IBAction func backgroundSelected(sender: AnyObject) {
         if isBackgroundSelected == true {
@@ -75,6 +76,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     @IBAction func sliderBlenderAction(sender: UISlider) {
         blenderValue = sender.value
         foregroundImage.image = self.imageByApplyingAlpha(CGFloat(blenderValue))
+        
     }
     
     @IBAction func slider(sender: UISlider) {
@@ -103,7 +105,10 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     }
     
     @IBAction func stopEditing(sender: AnyObject) {
-        println("acabou")
+        println("\(images.count)")
+        if (images.first == nil) {
+            println("primeiro nulo")
+        }
         if images.count == 10 {
             images.removeAtIndex(0)
             println("10")
@@ -152,6 +157,9 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         brightnessValue = 0
         contrastValue = 1
         blenderValue = 0.5
+        
+        dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValue" : brightnessValue, "contrastValue" : contrastValue]
+        images.append(dictionary)
 
         context = CIContext(options:nil)
         
@@ -199,13 +207,24 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         }
         if (item.tag == 3) {
             println("tres")
-            if !images.isEmpty {
+            println("\(images.count)")
+            if (images.first == nil) {
+                println("primeiro nulo")
+            }
+            if images.count > 1 {
                 var dictionary = images.removeLast()
                 backgroundImage.image = dictionary.valueForKey("background") as? UIImage
                 foregroundImage.image = dictionary.valueForKey("foreground") as? UIImage
                 sliderBlender.setValue(dictionary.valueForKey("blenderValue") as! Float, animated: true)
                 sliderBrightness.setValue(dictionary.valueForKey("brightnessValue") as! Float, animated: true)
                 sliderContrast.setValue(dictionary.valueForKey("contrastValue") as! Float, animated: true)
+            } else {
+                var dictionary = images.last
+                backgroundImage.image = dictionary!.valueForKey("background") as? UIImage
+                foregroundImage.image = dictionary!.valueForKey("foreground") as? UIImage
+                sliderBlender.setValue(dictionary!.valueForKey("blenderValue") as! Float, animated: true)
+                sliderBrightness.setValue(dictionary!.valueForKey("brightnessValue") as! Float, animated: true)
+                sliderContrast.setValue(dictionary!.valueForKey("contrastValue") as! Float, animated: true)
             }
         }
     }
