@@ -121,6 +121,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         var originalOrientation = backgroundImage.image!.imageOrientation
         var  originalScale = backgroundImage.image!.scale
         let newImage = UIImage(CGImage: cgimg, scale:originalScale, orientation:originalOrientation)
+        
         backgroundImage.image = newImage
         
     }
@@ -183,7 +184,6 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         images.append(dictionary)
 
         context = CIContext(options:nil)
-        
     }
     
     func draggedImage(sender: UIPanGestureRecognizer) {
@@ -291,7 +291,8 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
 
     
     func imageByApplyingAlpha(alpha:CGFloat) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(foregroundImage.image!.size, false, 0.0)
+        
+        UIGraphicsBeginImageContextWithOptions(foregroundImage.image!.size, false, foregroundImage.image!.scale)
         var ctx = UIGraphicsGetCurrentContext()
         var area = CGRectMake(0, 0, foregroundImage.image!.size.width, foregroundImage.image!.size.height)
     
@@ -302,13 +303,18 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     
         CGContextSetAlpha(ctx, alpha)
     
-        CGContextDrawImage(ctx, area, image2!.CGImage)
+        CGContextDrawImage(ctx, area, foregroundImage.image!.CGImage)
     
-        var newImage = UIGraphicsGetImageFromCurrentImageContext()
+        var outputImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        var originalOrientation = foregroundImage.image!.imageOrientation
+        var  originalScale = foregroundImage.image!.scale
+        var image = UIImage(CGImage: outputImage.CGImage, scale:originalScale, orientation:originalOrientation)
     
+        
         UIGraphicsEndImageContext()
     
-        return newImage;
+        return image!
     }
 
 }
