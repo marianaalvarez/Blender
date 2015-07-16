@@ -37,6 +37,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         backgroundSet = false
         foregroundSet = false
         
+        blendButton.layer.cornerRadius = 22
+        blendButton.layer.borderColor = UIColor.whiteColor().CGColor
+        blendButton.layer.borderWidth = 1
+        
 //        blendButton.userInteractionEnabled = false
 //        blendButton.alpha = 0.5
     }

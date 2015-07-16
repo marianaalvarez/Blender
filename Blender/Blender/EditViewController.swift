@@ -116,9 +116,11 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         
         let outputImage = colorControls!.outputImage
         
-        let cgimg = context.createCGImage(outputImage, fromRect: outputImage.extent())
+        let cgimg = context.createCGImage(outputImage, fromRect: outputImage.extent().standardizedRect)
         
-        let newImage = UIImage(CGImage: cgimg, scale:1, orientation:orientation)
+        var originalOrientation = backgroundImage.image!.imageOrientation
+        var  originalScale = backgroundImage.image!.scale
+        let newImage = UIImage(CGImage: cgimg, scale:originalScale, orientation:originalOrientation)
         backgroundImage.image = newImage
         
     }
@@ -262,7 +264,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         
         currentPoint = point
         
-        UIGraphicsBeginImageContext(imageView.frame.size);
+        UIGraphicsBeginImageContext(imageView.frame.size)
         imageView.image!.drawInRect(CGRectMake(0, 0, imageView.frame.size.width, imageView.frame.size.height))
         
         CGContextSaveGState(UIGraphicsGetCurrentContext());
@@ -290,7 +292,6 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     
     func imageByApplyingAlpha(alpha:CGFloat) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(foregroundImage.image!.size, false, 0.0)
-    
         var ctx = UIGraphicsGetCurrentContext()
         var area = CGRectMake(0, 0, foregroundImage.image!.size.width, foregroundImage.image!.size.height)
     
