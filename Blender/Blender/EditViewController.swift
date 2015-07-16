@@ -49,25 +49,44 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     
     @IBAction func backgroundSelected(sender: AnyObject) {
         if isBackgroundSelected == true {
-            isBackgroundSelected = false
-            backgroundButton.setImage(UIImage(named: "number1"), forState: .Normal)
+            self.backgroundOn(false)
+            self.foregroundOn(true)
         } else {
-            isBackgroundSelected = true
-            backgroundButton.setImage(UIImage(named: "number1selected"), forState: .Normal)
+            self.backgroundOn(true)
+            self.foregroundOn(false)
         }
     }
     
     @IBAction func foregorundSelected(sender: AnyObject) {
         if isForegroundSelected == true {
-            isForegroundSelected = false
-            //foregroundImage.userInteractionEnabled = false
-            foregroundButton.setImage(UIImage(named: "number2"), forState: .Normal)
+            self.backgroundOn(true)
+            self.foregroundOn(false)
         } else {
-            isForegroundSelected = true
-            //foregroundImage.userInteractionEnabled = true
-            foregroundButton.setImage(UIImage(named: "number2selected"), forState: .Normal)
+            self.backgroundOn(false)
+            self.foregroundOn(true)
         }
     }
+    
+    func backgroundOn(state: Bool) {
+        if state == true {
+            isBackgroundSelected = true
+            backgroundButton.setImage(UIImage(named: "number1selected"), forState: .Normal)
+        } else {
+            isBackgroundSelected = false
+            backgroundButton.setImage(UIImage(named: "number1"), forState: .Normal)
+        }
+    }
+    
+    func foregroundOn(state: Bool) {
+        if state == true {
+            isForegroundSelected = true
+            foregroundButton.setImage(UIImage(named: "number2selected"), forState: .Normal)
+        } else {
+            isForegroundSelected = false
+            foregroundButton.setImage(UIImage(named: "number2"), forState: .Normal)
+        }
+    }
+    
 
     @IBAction func cancelButton(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
