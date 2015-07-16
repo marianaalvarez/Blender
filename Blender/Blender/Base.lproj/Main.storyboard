@@ -373,11 +373,17 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="qra-D8-SgK">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="saveButton:" destination="KGb-w3-pkN" id="hmG-1u-Wfb"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="backgroundButton" destination="IhJ-Ef-Hij" id="Vns-sa-7z6"/>
                         <outlet property="backgroundImage" destination="7Dx-s0-fXf" id="Goe-6f-HXX"/>
+                        <outlet property="blenderLabel" destination="pSG-2e-87W" id="bdZ-7P-wEr"/>
+                        <outlet property="brightnessLabel" destination="w9H-ZW-t7l" id="9Lb-lt-dFP"/>
+                        <outlet property="contrastLabel" destination="D7j-QV-OZx" id="hWc-bQ-5W1"/>
                         <outlet property="foregroundButton" destination="pLt-Qn-Iss" id="QLd-A6-Jac"/>
                         <outlet property="foregroundImage" destination="JFf-FR-TdN" id="slO-nh-aFs"/>
                         <outlet property="scrollView" destination="TRn-b0-ZZD" id="H1s-H1-ax8"/>

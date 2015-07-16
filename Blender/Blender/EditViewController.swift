@@ -14,6 +14,9 @@ import Foundation
 
 class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelegate  {
 
+    @IBOutlet weak var blenderLabel: UILabel!
+    @IBOutlet weak var brightnessLabel: UILabel!
+    @IBOutlet weak var contrastLabel: UILabel!
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var whiteLayer: UIImageView!
     @IBOutlet weak var backgroundImage: UIImageView!
@@ -29,14 +32,13 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     let pinchGesture = UIPinchGestureRecognizer()
     let eraser = UIPanGestureRecognizer()
     var isBackgroundSelected: Bool?
-    var isForegroundSelected: Bool?
+    var imageViewSelected: UIImageView?
     var image1: UIImage!
     var image2: UIImage!
     var context: CIContext!
     var brightness: CIFilter!
-    var beginImage: CIImage!
-    var contrastImage: CIImage!
-    var brightnessImage: CIImage!
+    var beginImageBackground: CIImage!
+    var beginImageForeground: CIImage!
     var contrastValue: Float!
     var brightnessValue: Float!
     var blenderValue: Float!
@@ -48,82 +50,43 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     var dictionary : [String: AnyObject]!
     
     @IBAction func backgroundSelected(sender: AnyObject) {
-        if isBackgroundSelected == true {
-            self.backgroundOn(false)
-            self.foregroundOn(true)
-        } else {
-            self.backgroundOn(true)
-            self.foregroundOn(false)
-        }
+        isBackgroundSelected = true
+        backgroundButton.setImage(UIImage(named: "number1selected"), forState: .Normal)
+        foregroundButton.setImage(UIImage(named: "number2"), forState: .Normal)
     }
     
     @IBAction func foregorundSelected(sender: AnyObject) {
-        if isForegroundSelected == true {
-            self.backgroundOn(true)
-            self.foregroundOn(false)
-        } else {
-            self.backgroundOn(false)
-            self.foregroundOn(true)
-        }
+        isBackgroundSelected = false
+        backgroundButton.setImage(UIImage(named: "number1"), forState: .Normal)
+        foregroundButton.setImage(UIImage(named: "number2selected"), forState: .Normal)
     }
-    
-    func backgroundOn(state: Bool) {
-        if state == true {
-            isBackgroundSelected = true
-            backgroundButton.setImage(UIImage(named: "number1selected"), forState: .Normal)
-        } else {
-            isBackgroundSelected = false
-            backgroundButton.setImage(UIImage(named: "number1"), forState: .Normal)
-        }
-    }
-    
-    func foregroundOn(state: Bool) {
-        if state == true {
-            isForegroundSelected = true
-            foregroundButton.setImage(UIImage(named: "number2selected"), forState: .Normal)
-        } else {
-            isForegroundSelected = false
-            foregroundButton.setImage(UIImage(named: "number2"), forState: .Normal)
-        }
-    }
-    
 
     @IBAction func cancelButton(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    @IBAction func saveButton(sender: AnyObject) {
+
+    }
+    
     @IBAction func sliderBlenderAction(sender: UISlider) {
         blenderValue = sender.value
-        foregroundImage.image = self.imageByApplyingAlpha(CGFloat(blenderValue))
+        foregroundImage.alpha = CGFloat(blenderValue)
         
     }
     
     @IBAction func slider(sender: UISlider) {
+        
         if sender.tag == 1 {
             brightnessValue = sender.value
         } else {
             contrastValue = sender.value
         }
-        
-        var image = CIImage(CGImage: backgroundImage.image!.CGImage)
-        if colorControls == nil {
-            colorControls = CIFilter(name:"CIColorControls")
+        if isBackgroundSelected == true {
+            self.setFilter(backgroundImage, beginImage: beginImageBackground)
+        } else {
+            self.setFilter(foregroundImage, beginImage: beginImageForeground)
         }
-        colorControls!.setValue(beginImage, forKey:kCIInputImageKey)
-        colorControls!.setValue(contrastValue, forKey:"inputContrast")
-        colorControls!.setValue(brightnessValue, forKey:"inputBrightness")
-        
-        
-        let outputImage = colorControls!.outputImage
-        
-        let cgimg = context.createCGImage(outputImage, fromRect: outputImage.extent().standardizedRect)
-        
-        var originalOrientation = backgroundImage.image!.imageOrientation
-        var  originalScale = backgroundImage.image!.scale
-        let newImage = UIImage(CGImage: cgimg, scale:originalScale, orientation:originalOrientation)
-        
-        backgroundImage.image = newImage
-        
     }
     
     @IBAction func stopEditing(sender: AnyObject) {
@@ -146,7 +109,6 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         scrollView.delegate = self
         
         isBackgroundSelected = true
-        isForegroundSelected = false
         
         backgroundButton.setImage(UIImage(named: "number1selected"), forState: .Normal)
         foregroundButton.setImage(UIImage(named: "number2"), forState: .Normal)
@@ -158,7 +120,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         
         backgroundImage.image = image1
         foregroundImage.image = image2
-        foregroundImage.image = self.imageByApplyingAlpha(0.5)
+        foregroundImage.alpha = 0.5
         
         scrollView.addSubview(whiteLayer)
         scrollView.addSubview(backgroundImage)
@@ -172,13 +134,19 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         eraser.addTarget(self, action: "eraseImage:")
         foregroundImage.multipleTouchEnabled = true
         
-        beginImage = CIImage(CGImage: backgroundImage.image!.CGImage)
-        contrastImage = CIImage(CGImage: backgroundImage.image!.CGImage)
-        brightnessImage = CIImage(CGImage: backgroundImage.image!.CGImage)
+        beginImageBackground = CIImage(CGImage: backgroundImage.image!.CGImage)
+        beginImageForeground = CIImage(CGImage: foregroundImage.image!.CGImage)
         
         brightnessValue = 0
         contrastValue = 1
         blenderValue = 0.5
+        
+        blenderLabel.hidden = true
+        brightnessLabel.hidden = true
+        contrastLabel.hidden = true
+        sliderBlender.hidden = true
+        sliderBrightness.hidden = true
+        sliderContrast.hidden = true
         
         dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValue" : brightnessValue, "contrastValue" : contrastValue]
         images.append(dictionary)
@@ -190,8 +158,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         var translation = sender.translationInView(self.view)
         if (isBackgroundSelected == true) {
             backgroundImage.center = CGPointMake(backgroundImage.center.x + translation.x, backgroundImage.center.y + translation.y)
-        }
-        if (isForegroundSelected == true) {
+        } else {
             foregroundImage.center = CGPointMake(foregroundImage.center.x + translation.x, foregroundImage.center.y + translation.y)
         }
         sender.setTranslation(CGPointZero, inView: self.view)
@@ -200,8 +167,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     func pinchedImage(sender: UIPinchGestureRecognizer){
         if (isBackgroundSelected == true) {
             backgroundImage.transform = CGAffineTransformScale(backgroundImage.transform, sender.scale, sender.scale)
-        }
-        if (isForegroundSelected == true) {
+        } else {
             foregroundImage.transform = CGAffineTransformScale(foregroundImage.transform, sender.scale, sender.scale)
         }
         sender.scale = 1.0
@@ -213,47 +179,62 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     }
 
     func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {
-        if (item.tag == 0) {
-            println("zero")
+        switch (item.tag) {
+        case 0:
+            self.validateTag(0)
             foregroundImage.addGestureRecognizer(panGesture)
             foregroundImage.addGestureRecognizer(pinchGesture)
-        }
-        if (item.tag == 1) {
-            println("um")
-            foregroundImage.gestureRecognizers?.removeAll(keepCapacity: false)
+            break
+        case 1:
+            self.validateTag(1)
             foregroundImage.addGestureRecognizer(eraser)
+            break
+        case 2:
+            self.validateTag(2)
+            blenderLabel.hidden = false
+            brightnessLabel.hidden = false
+            contrastLabel.hidden = false
+            sliderBlender.hidden = false
+            sliderBrightness.hidden = false
+            sliderContrast.hidden = false
+            break
+        case 3:
+            self.validateTag(3)
+            self.undoImage()
+            break
+        default:
+            break
+            
         }
-        if (item.tag == 2) {
-            println("dois")
-        }
-        if (item.tag == 3) {
-            println("tres")
-            println("\(images.count)")
-            if (images.first == nil) {
-                println("primeiro nulo")
-            }
-            if images.count > 1 {
-                var dictionary = images.removeLast()
-                backgroundImage.image = dictionary.valueForKey("background") as? UIImage
-                foregroundImage.image = dictionary.valueForKey("foreground") as? UIImage
-                sliderBlender.setValue(dictionary.valueForKey("blenderValue") as! Float, animated: true)
-                sliderBrightness.setValue(dictionary.valueForKey("brightnessValue") as! Float, animated: true)
-                sliderContrast.setValue(dictionary.valueForKey("contrastValue") as! Float, animated: true)
-            } else {
-                var dictionary = images.last
-                backgroundImage.image = dictionary!.valueForKey("background") as? UIImage
-                foregroundImage.image = dictionary!.valueForKey("foreground") as? UIImage
-                sliderBlender.setValue(dictionary!.valueForKey("blenderValue") as! Float, animated: true)
-                sliderBrightness.setValue(dictionary!.valueForKey("brightnessValue") as! Float, animated: true)
-                sliderContrast.setValue(dictionary!.valueForKey("contrastValue") as! Float, animated: true)
-            }
-        }
+        
     }
     
     func eraseImage(sender: UIPanGestureRecognizer) {
         
         var location = sender.locationInView(foregroundImage)
         self.eraseImageAtPoint(location, imageView: foregroundImage, eraser: foregroundImage.image!)
+    }
+    
+    func setFilter(imageView: UIImageView, beginImage: CIImage) {
+        var image = CIImage(CGImage: imageView.image!.CGImage)
+        if colorControls == nil {
+            colorControls = CIFilter(name:"CIColorControls")
+        }
+        colorControls!.setValue(beginImage, forKey:kCIInputImageKey)
+        colorControls!.setValue(contrastValue, forKey:"inputContrast")
+        colorControls!.setValue(brightnessValue, forKey:"inputBrightness")
+        
+        
+        let outputImage = colorControls!.outputImage
+        
+        let cgimg = context.createCGImage(outputImage, fromRect: outputImage.extent().standardizedRect)
+        
+        var originalOrientation = imageView.image!.imageOrientation
+        var  originalScale = imageView.image!.scale
+        let newImage = UIImage(CGImage: cgimg, scale:originalScale, orientation:originalOrientation)
+        
+        imageView.image = newImage
+
     }
     
     func eraseImageAtPoint(point: CGPoint, imageView: UIImageView, eraser: UIImage) {
@@ -288,33 +269,53 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         
         lastPoint = currentPoint
     }
-
     
-    func imageByApplyingAlpha(alpha:CGFloat) -> UIImage {
-        
-        UIGraphicsBeginImageContextWithOptions(foregroundImage.image!.size, false, foregroundImage.image!.scale)
-        var ctx = UIGraphicsGetCurrentContext()
-        var area = CGRectMake(0, 0, foregroundImage.image!.size.width, foregroundImage.image!.size.height)
-    
-        CGContextScaleCTM(ctx, 1, -1)
-        CGContextTranslateCTM(ctx, 0, -area.size.height)
-    
-        CGContextSetBlendMode(ctx, kCGBlendModeMultiply)
-    
-        CGContextSetAlpha(ctx, alpha)
-    
-        CGContextDrawImage(ctx, area, foregroundImage.image!.CGImage)
-    
-        var outputImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        var originalOrientation = foregroundImage.image!.imageOrientation
-        var  originalScale = foregroundImage.image!.scale
-        var image = UIImage(CGImage: outputImage.CGImage, scale:originalScale, orientation:originalOrientation)
-    
-        
-        UIGraphicsEndImageContext()
-    
-        return image!
+    func undoImage() {
+        if images.count > 1 {
+            var dictionary = images.removeLast()
+            backgroundImage.image = dictionary.valueForKey("background") as? UIImage
+            foregroundImage.image = dictionary.valueForKey("foreground") as? UIImage
+            sliderBlender.setValue(dictionary.valueForKey("blenderValue") as! Float, animated: true)
+            sliderBrightness.setValue(dictionary.valueForKey("brightnessValue") as! Float, animated: true)
+            sliderContrast.setValue(dictionary.valueForKey("contrastValue") as! Float, animated: true)
+        } else {
+            var dictionary = images.last
+            backgroundImage.image = dictionary!.valueForKey("background") as? UIImage
+            foregroundImage.image = dictionary!.valueForKey("foreground") as? UIImage
+            sliderBlender.setValue(dictionary!.valueForKey("blenderValue") as! Float, animated: true)
+            sliderBrightness.setValue(dictionary!.valueForKey("brightnessValue") as! Float, animated: true)
+            
+        }
     }
+    
+    func validateTag(tag: Int) {
+        foregroundImage.gestureRecognizers?.removeAll(keepCapacity: false)
+        if tag != 2 && tag != 3 {
+            blenderLabel.hidden = true
+            brightnessLabel.hidden = true
+            contrastLabel.hidden = true
+            sliderBlender.hidden = true
+            sliderBrightness.hidden = true
+            sliderContrast.hidden = true
+        }
+    }
+    
+//    JUNTANDO DUAS IMAGENS
+    
+//    var back = backgroundImage.image
+//    var fore = foregroundImage.image
+//    
+//    var newSize : CGSize = CGSizeMake(foregroundImage.frame.size.width, foregroundImage.frame.size.height)
+//    UIGraphicsBeginImageContext( newSize )
+//    
+//    // Use existing opacity as is
+//    back!.drawInRect(CGRectMake(0,0,newSize.width,newSize.height))
+//    fore!.drawInRect(CGRectMake(0,0,newSize.width,newSize.height), blendMode:kCGBlendModeNormal, alpha:0.5)
+//    
+//    var newImage = UIGraphicsGetImageFromCurrentImageContext();
+//    
+//    UIGraphicsEndImageContext();
+//    
+//    foregroundImage.image = newImage
 
 }
