@@ -35,6 +35,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sq6-Jf-NSq">
+                                <rect key="frame" x="0.0" y="294" width="600" height="230"/>
+                            </scrollView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s5V-cv-ErF">
+                                <rect key="frame" x="0.0" y="64" width="600" height="230"/>
+                            </scrollView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" translatesAutoresizingMaskIntoConstraints="NO" id="sGo-Ia-wIK">
+                                <rect key="frame" x="0.0" y="294" width="600" height="230"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" translatesAutoresizingMaskIntoConstraints="NO" id="qxH-M1-YEI">
                                 <rect key="frame" x="0.0" y="64" width="600" height="230"/>
                                 <color key="backgroundColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -70,9 +80,6 @@
                                     <segue destination="KGb-w3-pkN" kind="show" identifier="showEdit" id="I2w-PG-fuJ"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" translatesAutoresizingMaskIntoConstraints="NO" id="sGo-Ia-wIK">
-                                <rect key="frame" x="0.0" y="294" width="600" height="230"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYG-eT-dYI">
                                 <rect key="frame" x="0.0" y="294" width="600" height="230"/>
                                 <state key="normal">
@@ -96,6 +103,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="cYV-Yt-oLZ" secondAttribute="trailing" constant="-16" id="3Bq-cN-8OH"/>
                             <constraint firstItem="bYG-eT-dYI" firstAttribute="top" secondItem="cYV-Yt-oLZ" secondAttribute="bottom" id="3Se-39-2JA"/>
                             <constraint firstItem="wwV-aY-nnh" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="4Fn-xk-PUX"/>
+                            <constraint firstAttribute="centerX" secondItem="7eg-rz-qVr" secondAttribute="centerX" constant="5" id="4Po-bm-NqU"/>
                             <constraint firstItem="wwV-aY-nnh" firstAttribute="top" secondItem="sGo-Ia-wIK" secondAttribute="bottom" constant="15" id="4ac-BS-4sx"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="wwV-aY-nnh" secondAttribute="bottom" constant="15" id="8vz-vX-jDK"/>
                             <constraint firstAttribute="centerX" secondItem="sGo-Ia-wIK" secondAttribute="centerX" id="8xF-i4-SbN"/>
@@ -131,6 +139,7 @@
                                 <exclude reference="9Un-Gm-U2j"/>
                                 <exclude reference="QcH-bj-trO"/>
                                 <exclude reference="JQ1-Tx-sGf"/>
+                                <exclude reference="AKe-b9-oBk"/>
                                 <exclude reference="KDN-oi-dEw"/>
                                 <exclude reference="z4d-Zm-NLw"/>
                             </mask>

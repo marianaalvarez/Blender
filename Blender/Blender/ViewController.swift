@@ -73,11 +73,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             if selectedImage == 1 {
-                backgroundImage.contentMode = .ScaleAspectFill
+                backgroundImage.contentMode = UIViewContentMode.ScaleAspectFill
+                backgroundImage.clipsToBounds = true
                 backgroundImage.image = pickedImage
                 backgroundSet = true
             } else {
-                foregroundImage.contentMode = .ScaleAspectFill
+                foregroundImage.contentMode = UIViewContentMode.ScaleAspectFill
+                foregroundImage.clipsToBounds = true
                 foregroundImage.image = pickedImage
                 foregroundSet = true
             }
@@ -97,8 +99,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if (segue.identifier == "showEdit") {
             println("passou")
             let destinationController = segue.destinationViewController as! EditViewController
-            destinationController.image1 = backgroundImage.image
-            destinationController.image2 = foregroundImage.image
+            destinationController.image1 = backgroundImage.image!
+            destinationController.image2 = foregroundImage.image!
         }
     }
 
