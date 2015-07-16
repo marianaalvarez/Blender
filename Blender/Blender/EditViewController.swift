@@ -30,8 +30,8 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     let eraser = UIPanGestureRecognizer()
     var isBackgroundSelected: Bool?
     var isForegroundSelected: Bool?
-    var image1: UIImage?
-    var image2: UIImage?
+    var image1: UIImage!
+    var image2: UIImage!
     var context: CIContext!
     var brightness: CIFilter!
     var beginImage: CIImage!
@@ -74,7 +74,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     
     @IBAction func sliderBlenderAction(sender: UISlider) {
         blenderValue = sender.value
-        foregroundImage.alpha = CGFloat(blenderValue)
+        foregroundImage.image = self.imageByApplyingAlpha(CGFloat(blenderValue))
     }
     
     @IBAction func slider(sender: UISlider) {
@@ -131,7 +131,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         
         backgroundImage.image = image1
         foregroundImage.image = image2
-        foregroundImage.alpha = 0.5
+        foregroundImage.image = self.imageByApplyingAlpha(0.5)
         
         scrollView.addSubview(whiteLayer)
         scrollView.addSubview(backgroundImage)
@@ -248,9 +248,28 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         
         lastPoint = currentPoint
     }
+
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        println("tocou")
+    func imageByApplyingAlpha(alpha:CGFloat) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(foregroundImage.image!.size, false, 0.0)
+    
+        var ctx = UIGraphicsGetCurrentContext()
+        var area = CGRectMake(0, 0, foregroundImage.image!.size.width, foregroundImage.image!.size.height)
+    
+        CGContextScaleCTM(ctx, 1, -1)
+        CGContextTranslateCTM(ctx, 0, -area.size.height)
+    
+        CGContextSetBlendMode(ctx, kCGBlendModeMultiply)
+    
+        CGContextSetAlpha(ctx, alpha)
+    
+        CGContextDrawImage(ctx, area, image2!.CGImage)
+    
+        var newImage = UIGraphicsGetImageFromCurrentImageContext()
+    
+        UIGraphicsEndImageContext()
+    
+        return newImage;
     }
 
 }
