@@ -14,6 +14,7 @@ import Foundation
 
 class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelegate  {
 
+    @IBOutlet weak var greyView: UIView!
     @IBOutlet weak var blenderLabel: UILabel!
     @IBOutlet weak var brightnessLabel: UILabel!
     @IBOutlet weak var contrastLabel: UILabel!
@@ -42,10 +43,6 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     var contrastValueF: Float!
     var brightnessValueB: Float!
     var brightnessValueF: Float!
-    var centerValueB: CGPoint!
-    var centerValueF: CGPoint!
-    var scaleValueB: CGFloat!
-    var scaleValueF: CGFloat!
     var blenderValue: Float!
     var orientation: UIImageOrientation = .Up
     var currentPoint: CGPoint?
@@ -94,7 +91,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
             let alert = UIAlertController(title: "Image saved", message: "Your image has been saved to your camera roll", preferredStyle: UIAlertControllerStyle.Alert)
         
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        
+            alert.view.tintColor = UIColor(red:1, green:0.41, blue:0.617, alpha:1)
             self.presentViewController(alert, animated: true, completion: nil)
     }
     
@@ -152,6 +149,8 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         foregroundImage.image = image2
         foregroundImage.alpha = 0.5
         
+        self.view.insertSubview(greyView, atIndex: 1)
+        
         scrollView.addSubview(whiteLayer)
         scrollView.addSubview(backgroundImage)
         scrollView.addSubview(foregroundImage)
@@ -179,14 +178,12 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         sliderBrightness.hidden = false
         sliderContrast.hidden = false
         
+        
+        
         tabBar.selectedItem = self.tabBar.items![1] as? UITabBarItem
         
-        centerValueB = backgroundImage.center
-        centerValueF = foregroundImage.center
-        scaleValueB = 1
-        scaleValueF = 1
         
-        dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF, "scaleValueB" : scaleValueB, "scaleValueF" : scaleValueF]
+        dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF]
         
         images.append(dictionary)
 
@@ -198,13 +195,13 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         if (isBackgroundSelected == true) {
             backgroundImage.center = CGPointMake(backgroundImage.center.x + translation.x, backgroundImage.center.y + translation.y)
             if sender.state == .Ended {
-                dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF, "scaleValueB" : scaleValueB, "scaleValueF" : scaleValueF]
+                dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF]
                 images.append(dictionary)
             }
         } else {
             foregroundImage.center = CGPointMake(foregroundImage.center.x + translation.x, foregroundImage.center.y + translation.y)
             if sender.state == .Ended {
-                dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF, "scaleValueB" : scaleValueB, "scaleValueF" : scaleValueF]
+                dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF]
                 images.append(dictionary)
             }
         }
@@ -215,18 +212,16 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     
     func pinchedImage(sender: UIPinchGestureRecognizer){
         if (isBackgroundSelected == true) {
-            scaleValueB = sender.scale
             backgroundImage.transform = CGAffineTransformScale(backgroundImage.transform, sender.scale, sender.scale)
             if sender.state == .Ended {
-                dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF, "scaleValueB" : scaleValueB, "scaleValueF" : scaleValueF]
+                dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF]
                 images.append(dictionary)
                 println("\(backgroundImage.image!.scale)")
             }
         } else {
-            scaleValueF = sender.scale
             foregroundImage.transform = CGAffineTransformScale(foregroundImage.transform, sender.scale, sender.scale)
             if sender.state == .Ended {
-                dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF, "scaleValueB" : scaleValueB, "scaleValueF" : scaleValueF]
+                dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF]
                 images.append(dictionary)
             }
         }
@@ -253,6 +248,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
             sliderBlender.hidden = false
             sliderBrightness.hidden = false
             sliderContrast.hidden = false
+            greyView.hidden = false
             break
         case 3:
             self.validateTag(3)
@@ -288,39 +284,29 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     }
     
     func undoImage() {
+        var dictionary : NSDictionary!
         if images.count > 1 {
-            var dictionary = images.removeLast()
-            backgroundImage.image = dictionary.valueForKey("background") as? UIImage
-            foregroundImage.image = dictionary.valueForKey("foreground") as? UIImage
-            sliderBlender.setValue(dictionary.valueForKey("blenderValue") as! Float, animated: true)
-            foregroundImage.alpha = CGFloat(sliderBlender.value)
-            if isBackgroundSelected == true {
-                sliderBrightness.setValue(dictionary.valueForKey("brightnessValueB") as! Float, animated: true)
-                sliderContrast.setValue(dictionary.valueForKey("contrastValueB") as! Float, animated: true)
-            } else {
-                sliderBrightness.setValue(dictionary.valueForKey("brightnessValueF") as! Float, animated: true)
-                sliderContrast.setValue(dictionary.valueForKey("contrastValueF") as! Float, animated: true)
-            }
+            dictionary = images.removeLast()
         } else {
-            var dictionary = images.last
-            backgroundImage.image = dictionary!.valueForKey("background") as? UIImage
-            foregroundImage.image = dictionary!.valueForKey("foreground") as? UIImage
-            sliderBlender.setValue(dictionary!.valueForKey("blenderValue") as! Float, animated: true)
-            foregroundImage.alpha = CGFloat(sliderBlender.value)
-            if isBackgroundSelected == true {
-                sliderBrightness.setValue(dictionary!.valueForKey("brightnessValueB") as! Float, animated: true)
-                sliderContrast.setValue(dictionary!.valueForKey("contrastValueB") as! Float, animated: true)
-            } else {
-                sliderBrightness.setValue(dictionary!.valueForKey("brightnessValueF") as! Float, animated: true)
-                sliderContrast.setValue(dictionary!.valueForKey("contrastValueF") as! Float, animated: true)
-            }
-            
+            dictionary = images.last
+        }
+        backgroundImage.image = dictionary.valueForKey("background") as? UIImage
+        foregroundImage.image = dictionary.valueForKey("foreground") as? UIImage
+        sliderBlender.setValue(dictionary.valueForKey("blenderValue") as! Float, animated: true)
+        foregroundImage.alpha = CGFloat(sliderBlender.value)
+        if isBackgroundSelected == true {
+            sliderBrightness.setValue(dictionary.valueForKey("brightnessValueB") as! Float, animated: true)
+            sliderContrast.setValue(dictionary.valueForKey("contrastValueB") as! Float, animated: true)
+        } else {
+            sliderBrightness.setValue(dictionary.valueForKey("brightnessValueF") as! Float, animated: true)
+            sliderContrast.setValue(dictionary.valueForKey("contrastValueF") as! Float, animated: true)
         }
     }
     
     func validateTag(tag: Int) {
         foregroundImage.gestureRecognizers?.removeAll(keepCapacity: false)
-        if tag != 2 && tag != 3 {
+        if tag != 2 {
+            greyView.hidden = true
             blenderLabel.hidden = true
             brightnessLabel.hidden = true
             contrastLabel.hidden = true

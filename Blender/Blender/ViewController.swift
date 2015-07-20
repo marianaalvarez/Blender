@@ -13,6 +13,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var foregroundImage: UIImageView!
     @IBOutlet weak var blendButton: UIButton!
+    @IBOutlet weak var backgroundLabel: UILabel!
+    @IBOutlet weak var foregroundLabel: UILabel!
     let imagePicker = UIImagePickerController()
     var selectedImage: Int?
     var backgroundSet: Bool?
@@ -30,6 +32,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
+        
+        backgroundLabel.hidden = false
+        foregroundLabel.hidden = false
         
         backgroundImage.image = UIImage(named: "photo")
         foregroundImage.image = UIImage(named: "photo")
@@ -80,11 +85,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 backgroundImage.contentMode = UIViewContentMode.ScaleAspectFill
                 backgroundImage.clipsToBounds = true
                 backgroundImage.image = pickedImage
+                backgroundLabel.hidden = true
                 backgroundSet = true
             } else {
                 foregroundImage.contentMode = UIViewContentMode.ScaleAspectFill
                 foregroundImage.clipsToBounds = true
                 foregroundImage.image = pickedImage
+                foregroundLabel.hidden = true
                 foregroundSet = true
             }
             if (foregroundSet == true && backgroundSet == true) {
