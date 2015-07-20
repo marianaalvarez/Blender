@@ -275,10 +275,7 @@
                                 <rect key="frame" x="0.0" y="551" width="600" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
-                                    <tabBarItem image="resize" id="Naf-Ir-dAT">
-                                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
-                                    </tabBarItem>
-                                    <tabBarItem tag="1" image="erase" id="mwP-CN-A3c">
+                                    <tabBarItem tag="1" image="resize" id="Naf-Ir-dAT">
                                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
                                     </tabBarItem>
                                     <tabBarItem tag="2" title="" image="sun" id="goL-XL-m6d">
@@ -401,7 +398,6 @@
     </scenes>
     <resources>
         <image name="branco" width="600" height="450"/>
-        <image name="erase" width="32" height="32"/>
         <image name="number1" width="64" height="64"/>
         <image name="number2" width="64" height="64"/>
         <image name="photo" width="600" height="600"/>
