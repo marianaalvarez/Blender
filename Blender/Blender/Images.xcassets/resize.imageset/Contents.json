@@ -3,15 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Resize Four Directions-32.png"
+      "filename" : "Resize Four Directions Filled-32.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "Resize Four Directions Filled-64.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "Resize Four Directions Filled-100.png"
     }
   ],
   "info" : {

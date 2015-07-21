@@ -284,15 +284,11 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     }
     
     func undoImage() {
-        if firstUndo == true {
+        if firstUndo == true && images.count > 1 {
             images.removeLast()
         }
         var dictionary : NSDictionary!
-        if images.count > 1 {
-            dictionary = images.removeLast()
-        } else {
-            dictionary = images.removeAtIndex(0)
-        }
+        dictionary = images.removeLast()
         backgroundImage.image = dictionary.valueForKey("background") as? UIImage
         foregroundImage.image = dictionary.valueForKey("foreground") as? UIImage
         blenderValue = dictionary.valueForKey("blenderValue") as! Float
