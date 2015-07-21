@@ -50,23 +50,22 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     var colorControls: CIFilter?
     var images = [NSDictionary]()
     var dictionary : [String: AnyObject]!
+    var firstUndo : Bool?
     
     @IBAction func backgroundSelected(sender: AnyObject) {
         isBackgroundSelected = true
         backgroundButton.setImage(UIImage(named: "number1selected"), forState: .Normal)
         foregroundButton.setImage(UIImage(named: "number2"), forState: .Normal)
-        var dictionary = images.last
-        sliderBrightness.setValue(dictionary!.valueForKey("brightnessValueB") as! Float, animated: true)
-        sliderContrast.setValue(dictionary!.valueForKey("contrastValueB") as! Float, animated: true)
+        sliderBrightness.setValue(brightnessValueB, animated: true)
+        sliderContrast.setValue(contrastValueB, animated: true)
     }
     
     @IBAction func foregorundSelected(sender: AnyObject) {
         isBackgroundSelected = false
         backgroundButton.setImage(UIImage(named: "number1"), forState: .Normal)
         foregroundButton.setImage(UIImage(named: "number2selected"), forState: .Normal)
-        var dictionary = images.last
-        sliderBrightness.setValue(dictionary!.valueForKey("brightnessValueF") as! Float, animated: true)
-        sliderContrast.setValue(dictionary!.valueForKey("contrastValueF") as! Float, animated: true)
+        sliderBrightness.setValue(brightnessValueF, animated: true)
+        sliderContrast.setValue(contrastValueF, animated: true)
     }
 
     @IBAction func cancelButton(sender: AnyObject) {
@@ -127,6 +126,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         }
         var dictionary : [String: AnyObject] = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF]
         images.append(dictionary)
+        firstUndo = true
         
     }
     
@@ -178,7 +178,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         sliderBrightness.hidden = false
         sliderContrast.hidden = false
         
-        
+        firstUndo = true
         
         tabBar.selectedItem = self.tabBar.items![1] as? UITabBarItem
         
@@ -284,23 +284,37 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     }
     
     func undoImage() {
+        if firstUndo == true {
+            images.removeLast()
+        }
         var dictionary : NSDictionary!
         if images.count > 1 {
             dictionary = images.removeLast()
         } else {
-            dictionary = images.last
+            dictionary = images.removeAtIndex(0)
         }
         backgroundImage.image = dictionary.valueForKey("background") as? UIImage
         foregroundImage.image = dictionary.valueForKey("foreground") as? UIImage
-        sliderBlender.setValue(dictionary.valueForKey("blenderValue") as! Float, animated: true)
-        foregroundImage.alpha = CGFloat(sliderBlender.value)
-        if isBackgroundSelected == true {
-            sliderBrightness.setValue(dictionary.valueForKey("brightnessValueB") as! Float, animated: true)
-            sliderContrast.setValue(dictionary.valueForKey("contrastValueB") as! Float, animated: true)
+        blenderValue = dictionary.valueForKey("blenderValue") as! Float
+        foregroundImage.alpha = CGFloat(blenderValue)
+        brightnessValueB = dictionary.valueForKey("brightnessValueB") as! Float
+        brightnessValueF = dictionary.valueForKey("brightnessValueF") as! Float
+        contrastValueB = dictionary.valueForKey("contrastValueB") as! Float
+        contrastValueF = dictionary.valueForKey("contrastValueF") as! Float
+        sliderBlender.setValue(blenderValue, animated: true)
+        
+        if (isBackgroundSelected == true) {
+            sliderBrightness.setValue(brightnessValueB, animated: true)
+            sliderContrast.setValue(contrastValueB, animated: true)
         } else {
-            sliderBrightness.setValue(dictionary.valueForKey("brightnessValueF") as! Float, animated: true)
-            sliderContrast.setValue(dictionary.valueForKey("contrastValueF") as! Float, animated: true)
+            sliderBrightness.setValue(brightnessValueF, animated: true)
+            sliderContrast.setValue(contrastValueF, animated: true)
         }
+        if (images.isEmpty) {
+            var newDictionary : [String: AnyObject] = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF]
+            images.append(newDictionary)
+        }
+        firstUndo = false
     }
     
     func validateTag(tag: Int) {

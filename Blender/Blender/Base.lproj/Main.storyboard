@@ -258,7 +258,7 @@
                                 <color key="tintColor" red="1" green="0.39997637271881104" blue="0.61530852317810059" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="slider:" destination="KGb-w3-pkN" eventType="valueChanged" id="qm0-9M-uhw"/>
-                                    <action selector="stopEditing:" destination="KGb-w3-pkN" eventType="touchUpInside" id="bcm-eM-QSc"/>
+                                    <action selector="stopEditing:" destination="KGb-w3-pkN" eventType="touchUpInside" id="6BD-fU-Jg4"/>
                                 </connections>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="WXZ-Iy-eZn">
@@ -266,7 +266,7 @@
                                 <color key="tintColor" red="1" green="0.39997637270000003" blue="0.61530852319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="sliderBlenderAction:" destination="KGb-w3-pkN" eventType="valueChanged" id="zLN-7s-cXD"/>
-                                    <action selector="stopEditing:" destination="KGb-w3-pkN" eventType="touchUpInside" id="jkd-LK-S5u"/>
+                                    <action selector="stopEditing:" destination="KGb-w3-pkN" eventType="touchUpInside" id="432-2A-XBb"/>
                                 </connections>
                             </slider>
                             <slider opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-0.10000000000000001" maxValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="wHz-uz-lEt">
@@ -274,7 +274,7 @@
                                 <color key="tintColor" red="1" green="0.39997637270000003" blue="0.61530852319999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="slider:" destination="KGb-w3-pkN" eventType="valueChanged" id="zQ9-ML-LND"/>
-                                    <action selector="stopEditing:" destination="KGb-w3-pkN" eventType="touchUpInside" id="t4v-Yu-2d6"/>
+                                    <action selector="stopEditing:" destination="KGb-w3-pkN" eventType="touchUpInside" id="So7-Bm-1N6"/>
                                 </connections>
                             </slider>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="white" translatesAutoresizingMaskIntoConstraints="NO" id="ECA-lH-m8D">
