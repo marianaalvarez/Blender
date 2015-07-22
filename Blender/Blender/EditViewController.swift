@@ -87,7 +87,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         
         
-            let alert = UIAlertController(title: "Image saved", message: "Your image has been saved to your camera roll", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Success", message: "Your image has been saved to your camera roll!", preferredStyle: UIAlertControllerStyle.Alert)
         
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             alert.view.tintColor = UIColor(red:1, green:0.41, blue:0.617, alpha:1)
@@ -177,12 +177,15 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         sliderBlender.hidden = false
         sliderBrightness.hidden = false
         sliderContrast.hidden = false
-        
+    
         firstUndo = true
         
         tabBar.selectedItem = self.tabBar.items![1] as? UITabBarItem
         
         
+        var centerPoint = scrollView.convertPoint(backgroundImage.center, toView:scrollView)
+        println("\(centerPoint)")
+
         dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF]
         
         images.append(dictionary)
@@ -191,10 +194,13 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     }
     
     func draggedImage(sender: UIPanGestureRecognizer) {
+        println("\(backgroundImage.center)")
         var translation = sender.translationInView(self.view)
         if (isBackgroundSelected == true) {
             backgroundImage.center = CGPointMake(backgroundImage.center.x + translation.x, backgroundImage.center.y + translation.y)
             if sender.state == .Ended {
+                var centerPoint = scrollView.convertPoint(backgroundImage.center, toView:scrollView)
+                println("\(centerPoint)")
                 dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF]
                 images.append(dictionary)
             }
@@ -206,11 +212,14 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
             }
         }
         sender.setTranslation(CGPointZero, inView: self.view)
-        
+        if sender.state == .Ended {
+            println("\(backgroundImage.center)")
+        }
         
     }
     
     func pinchedImage(sender: UIPinchGestureRecognizer){
+        
         if (isBackgroundSelected == true) {
             backgroundImage.transform = CGAffineTransformScale(backgroundImage.transform, sender.scale, sender.scale)
             if sender.state == .Ended {
@@ -232,7 +241,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {
         switch (item.tag) {
         case 1:
@@ -253,12 +262,17 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         case 3:
             self.validateTag(3)
             self.undoImage()
+            var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: Selector("undo"), userInfo: nil, repeats: false)
             break
         default:
             break
             
         }
         
+    }
+    
+    func undo() {
+       // self.tabBar.items![1].tintColor = UIColor(red:1, green:0.41, blue:0.617, alpha:1)
     }
     
     func setFilter(imageView: UIImageView, beginImage: CIImage, contrastValue: Float, brightnessValue: Float) {
@@ -298,7 +312,6 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         contrastValueB = dictionary.valueForKey("contrastValueB") as! Float
         contrastValueF = dictionary.valueForKey("contrastValueF") as! Float
         sliderBlender.setValue(blenderValue, animated: true)
-        
         if (isBackgroundSelected == true) {
             sliderBrightness.setValue(brightnessValueB, animated: true)
             sliderContrast.setValue(contrastValueB, animated: true)
@@ -325,6 +338,8 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
             sliderContrast.hidden = true
         }
     }
+    
+    
 
 
 }
