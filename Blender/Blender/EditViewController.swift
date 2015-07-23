@@ -32,7 +32,6 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     let panGesture = UIPanGestureRecognizer()
     let pinchGesture = UIPinchGestureRecognizer()
     var isBackgroundSelected: Bool?
-    var imageViewSelected: UIImageView?
     var image1: UIImage!
     var image2: UIImage!
     var context: CIContext!
@@ -44,6 +43,15 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     var brightnessValueB: Float!
     var brightnessValueF: Float!
     var blenderValue: Float!
+    var frameValueB: CGFloat!
+    var frameXB: CGFloat!
+    var frameYB: CGFloat!
+    var frameWB: CGFloat!
+    var frameHB: CGFloat!
+    var frameXF: CGFloat!
+    var frameYF: CGFloat!
+    var frameWF: CGFloat!
+    var frameHF: CGFloat!
     var orientation: UIImageOrientation = .Up
     var currentPoint: CGPoint?
     var lastPoint: CGPoint?
@@ -120,14 +128,12 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     }
     
     @IBAction func stopEditing(sender: AnyObject) {
-        if images.count == 10 {
+        if images.count == 15 {
             images.removeAtIndex(0)
-            println("10")
         }
-        var dictionary : [String: AnyObject] = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF]
+        var dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF, "frameXB" : frameXB, "frameYB" : frameYB,  "frameHB" : frameHB, "frameWB" : frameWB, "frameXF" : frameXF, "frameYF" : frameYF,  "frameHF" : frameHF, "frameWF" : frameWF]
         images.append(dictionary)
         firstUndo = true
-        
     }
     
     override func viewDidLoad() {
@@ -181,40 +187,52 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         firstUndo = true
         
         tabBar.selectedItem = self.tabBar.items![1] as? UITabBarItem
-        
-        
-        var centerPoint = scrollView.convertPoint(backgroundImage.center, toView:scrollView)
-        println("\(centerPoint)")
-
-        dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF]
-        
-        images.append(dictionary)
 
         context = CIContext(options:nil)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        frameXB = backgroundImage.frame.origin.x
+        frameYB = backgroundImage.frame.origin.y
+        frameHB = backgroundImage.frame.height
+        frameWB = backgroundImage.frame.width
+        frameXF = foregroundImage.frame.origin.x
+        frameYF = foregroundImage.frame.origin.y
+        frameHF = foregroundImage.frame.height
+        frameWF = foregroundImage.frame.width
+        
+        dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF, "frameXB" : frameXB, "frameYB" : frameYB,  "frameHB" : frameHB, "frameWB" : frameWB, "frameXF" : frameXF, "frameYF" : frameYF,  "frameHF" : frameHF, "frameWF" : frameWF]
+        
+        images.append(dictionary)
+    }
+    
     func draggedImage(sender: UIPanGestureRecognizer) {
-        println("\(backgroundImage.center)")
         var translation = sender.translationInView(self.view)
         if (isBackgroundSelected == true) {
             backgroundImage.center = CGPointMake(backgroundImage.center.x + translation.x, backgroundImage.center.y + translation.y)
             if sender.state == .Ended {
-                var centerPoint = scrollView.convertPoint(backgroundImage.center, toView:scrollView)
-                println("\(centerPoint)")
-                dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF]
+                frameXB = backgroundImage.frame.origin.x
+                frameYB = backgroundImage.frame.origin.y
+                frameHB = backgroundImage.frame.height
+                frameWB = backgroundImage.frame.width
+                
+                dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF, "frameXB" : frameXB, "frameYB" : frameYB,  "frameHB" : frameHB, "frameWB" : frameWB, "frameXF" : frameXF, "frameYF" : frameYF,  "frameHF" : frameHF, "frameWF" : frameWF]
                 images.append(dictionary)
             }
         } else {
             foregroundImage.center = CGPointMake(foregroundImage.center.x + translation.x, foregroundImage.center.y + translation.y)
             if sender.state == .Ended {
-                dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF]
+                frameXF = foregroundImage.frame.origin.x
+                frameYF = foregroundImage.frame.origin.y
+                frameHF = foregroundImage.frame.height
+                frameWF = foregroundImage.frame.width
+                
+                dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF, "frameXB" : frameXB, "frameYB" : frameYB,  "frameHB" : frameHB, "frameWB" : frameWB, "frameXF" : frameXF, "frameYF" : frameYF,  "frameHF" : frameHF, "frameWF" : frameWF]
                 images.append(dictionary)
             }
         }
         sender.setTranslation(CGPointZero, inView: self.view)
-        if sender.state == .Ended {
-            println("\(backgroundImage.center)")
-        }
+        firstUndo = true
         
     }
     
@@ -223,18 +241,28 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         if (isBackgroundSelected == true) {
             backgroundImage.transform = CGAffineTransformScale(backgroundImage.transform, sender.scale, sender.scale)
             if sender.state == .Ended {
-                dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF]
+                frameXB = backgroundImage.frame.origin.x
+                frameYB = backgroundImage.frame.origin.y
+                frameHB = backgroundImage.frame.height
+                frameWB = backgroundImage.frame.width
+                
+                dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF, "frameXB" : frameXB, "frameYB" : frameYB,  "frameHB" : frameHB, "frameWB" : frameWB, "frameXF" : frameXF, "frameYF" : frameYF,  "frameHF" : frameHF, "frameWF" : frameWF]
                 images.append(dictionary)
-                println("\(backgroundImage.image!.scale)")
             }
         } else {
             foregroundImage.transform = CGAffineTransformScale(foregroundImage.transform, sender.scale, sender.scale)
             if sender.state == .Ended {
-                dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF]
+                frameXF = foregroundImage.frame.origin.x
+                frameYF = foregroundImage.frame.origin.y
+                frameHF = foregroundImage.frame.height
+                frameWF = foregroundImage.frame.width
+                
+                dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF, "frameXB" : frameXB, "frameYB" : frameYB,  "frameHB" : frameHB, "frameWB" : frameWB, "frameXF" : frameXF, "frameYF" : frameYF,  "frameHF" : frameHF, "frameWF" : frameWF]
                 images.append(dictionary)
             }
         }
         sender.scale = 1.0
+        firstUndo = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -262,7 +290,6 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         case 3:
             self.validateTag(3)
             self.undoImage()
-            var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: Selector("undo"), userInfo: nil, repeats: false)
             break
         default:
             break
@@ -270,11 +297,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         }
         
     }
-    
-    func undo() {
-       // self.tabBar.items![1].tintColor = UIColor(red:1, green:0.41, blue:0.617, alpha:1)
-    }
-    
+
     func setFilter(imageView: UIImageView, beginImage: CIImage, contrastValue: Float, brightnessValue: Float) {
         var image = CIImage(CGImage: imageView.image!.CGImage)
         if colorControls == nil {
@@ -303,6 +326,16 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         }
         var dictionary : NSDictionary!
         dictionary = images.removeLast()
+        frameXB = dictionary.valueForKey("frameXB") as! CGFloat
+        frameYB = dictionary.valueForKey("frameYB") as! CGFloat
+        frameHB = dictionary.valueForKey("frameHB") as! CGFloat
+        frameWB = dictionary.valueForKey("frameWB") as! CGFloat
+        frameXF = dictionary.valueForKey("frameXF") as! CGFloat
+        frameYF = dictionary.valueForKey("frameYF") as! CGFloat
+        frameHF = dictionary.valueForKey("frameHF") as! CGFloat
+        frameWF = dictionary.valueForKey("frameWF") as! CGFloat
+        backgroundImage.frame = CGRectMake(frameXB, frameYB, frameWB, frameHB)
+        foregroundImage.frame = CGRectMake(frameXF, frameYF, frameWF, frameHF)
         backgroundImage.image = dictionary.valueForKey("background") as? UIImage
         foregroundImage.image = dictionary.valueForKey("foreground") as? UIImage
         blenderValue = dictionary.valueForKey("blenderValue") as! Float
@@ -320,7 +353,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
             sliderContrast.setValue(contrastValueF, animated: true)
         }
         if (images.isEmpty) {
-            var newDictionary : [String: AnyObject] = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF]
+            var newDictionary : [String: AnyObject] = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF, "frameXB" : frameXB, "frameYB" : frameYB,  "frameHB" : frameHB, "frameWB" : frameWB, "frameXF" : frameXF, "frameYF" : frameYF,  "frameHF" : frameHF, "frameWF" : frameWF]
             images.append(newDictionary)
         }
         firstUndo = false

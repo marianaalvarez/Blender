@@ -46,8 +46,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         blendButton.layer.borderColor = UIColor.whiteColor().CGColor
         blendButton.layer.borderWidth = 1
         
-//        blendButton.userInteractionEnabled = false
-//        blendButton.alpha = 0.5
+        blendButton.userInteractionEnabled = false
+        blendButton.alpha = 0.5
     }
     
     override func didReceiveMemoryWarning() {
@@ -108,7 +108,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showEdit") {
-            println("passou")
             let destinationController = segue.destinationViewController as! EditViewController
             destinationController.image1 = backgroundImage.image!
             destinationController.image2 = foregroundImage.image!
