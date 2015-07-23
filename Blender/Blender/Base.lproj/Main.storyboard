@@ -14,6 +14,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.48298215482573725" green="0.48298215482573725" blue="0.48298215482573725" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="27"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="JjT-Dc-gha"/>
@@ -23,7 +26,7 @@
             </objects>
             <point key="canvasLocation" x="-524" y="233"/>
         </scene>
-        <!--PhotoBlender-->
+        <!--DuoPic-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Blender" customModuleProvider="target" sceneMemberID="viewController">
@@ -84,7 +87,7 @@
                                     <constraint firstAttribute="width" secondItem="wwV-aY-nnh" secondAttribute="height" multiplier="75:11" id="fey-F8-y8y"/>
                                     <constraint firstAttribute="height" constant="36" id="hKE-6X-jyf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="24"/>
                                 <state key="normal" title="Blend!">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -173,7 +176,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="PhotoBlender" id="xYY-ud-sCn"/>
+                    <navigationItem key="navigationItem" title="DuoPic" id="xYY-ud-sCn"/>
                     <connections>
                         <outlet property="backgroundImage" destination="qxH-M1-YEI" id="YKX-tD-RIz"/>
                         <outlet property="backgroundLabel" destination="yaL-sQ-t2i" id="QJk-dI-84d"/>
@@ -185,7 +188,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
-        <!--PhotoBlender-->
+        <!--DuoPic-->
         <scene sceneID="byq-cc-d16">
             <objects>
                 <viewController id="KGb-w3-pkN" customClass="EditViewController" customModule="Blender" customModuleProvider="target" sceneMemberID="viewController">
@@ -406,7 +409,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="PhotoBlender" id="QXS-oP-5bd">
+                    <navigationItem key="navigationItem" title="DuoPic" id="QXS-oP-5bd">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="9ci-9t-VhL">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
