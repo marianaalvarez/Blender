@@ -86,7 +86,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
             let offset = scrollView.contentOffset
         
             CGContextTranslateCTM(UIGraphicsGetCurrentContext(), -offset.x, -offset.y)
-            scrollView.layer.renderInContext(UIGraphicsGetCurrentContext())
+            scrollView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
         
             let image = UIGraphicsGetImageFromCurrentImageContext()
         
@@ -131,7 +131,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         if images.count == 15 {
             images.removeAtIndex(0)
         }
-        var dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF, "frameXB" : frameXB, "frameYB" : frameYB,  "frameHB" : frameHB, "frameWB" : frameWB, "frameXF" : frameXF, "frameYF" : frameYF,  "frameHF" : frameHF, "frameWF" : frameWF]
+        let dictionary = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF, "frameXB" : frameXB, "frameYB" : frameYB,  "frameHB" : frameHB, "frameWB" : frameWB, "frameXF" : frameXF, "frameYF" : frameYF,  "frameHF" : frameHF, "frameWF" : frameWF]
         images.append(dictionary)
         firstUndo = true
     }
@@ -168,8 +168,8 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         pinchGesture.addTarget(self, action: "pinchedImage:")
         foregroundImage.multipleTouchEnabled = true
         
-        beginImageBackground = CIImage(CGImage: backgroundImage.image!.CGImage)
-        beginImageForeground = CIImage(CGImage: foregroundImage.image!.CGImage)
+        beginImageBackground = CIImage(CGImage: backgroundImage.image!.CGImage!)
+        beginImageForeground = CIImage(CGImage: foregroundImage.image!.CGImage!)
         
         brightnessValueB = 0
         brightnessValueF = 0
@@ -186,7 +186,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     
         firstUndo = true
         
-        tabBar.selectedItem = self.tabBar.items![1] as? UITabBarItem
+        tabBar.selectedItem = self.tabBar.items![1]
 
         context = CIContext(options:nil)
     }
@@ -207,7 +207,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     }
     
     func draggedImage(sender: UIPanGestureRecognizer) {
-        var translation = sender.translationInView(self.view)
+        let translation = sender.translationInView(self.view)
         if (isBackgroundSelected == true) {
             backgroundImage.center = CGPointMake(backgroundImage.center.x + translation.x, backgroundImage.center.y + translation.y)
             if sender.state == .Ended {
@@ -270,7 +270,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         // Dispose of any resources that can be recreated.
     }
     
-    func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {
+    func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         switch (item.tag) {
         case 1:
             self.validateTag(1)
@@ -299,7 +299,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
     }
 
     func setFilter(imageView: UIImageView, beginImage: CIImage, contrastValue: Float, brightnessValue: Float) {
-        var image = CIImage(CGImage: imageView.image!.CGImage)
+        _ = CIImage(CGImage: imageView.image!.CGImage!)
         if colorControls == nil {
             colorControls = CIFilter(name:"CIColorControls")
         }
@@ -310,10 +310,10 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         
         let outputImage = colorControls!.outputImage
         
-        let cgimg = context.createCGImage(outputImage, fromRect: outputImage.extent().standardizedRect)
+        let cgimg = context.createCGImage(outputImage!, fromRect: outputImage!.extent.standardized)
         
-        var originalOrientation = imageView.image!.imageOrientation
-        var  originalScale = imageView.image!.scale
+        let originalOrientation = imageView.image!.imageOrientation
+        let  originalScale = imageView.image!.scale
         let newImage = UIImage(CGImage: cgimg, scale:originalScale, orientation:originalOrientation)
         
         imageView.image = newImage
@@ -326,6 +326,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         }
         var dictionary : NSDictionary!
         dictionary = images.removeLast()
+        
         frameXB = dictionary.valueForKey("frameXB") as! CGFloat
         frameYB = dictionary.valueForKey("frameYB") as! CGFloat
         frameHB = dictionary.valueForKey("frameHB") as! CGFloat
@@ -334,6 +335,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         frameYF = dictionary.valueForKey("frameYF") as! CGFloat
         frameHF = dictionary.valueForKey("frameHF") as! CGFloat
         frameWF = dictionary.valueForKey("frameWF") as! CGFloat
+        
         backgroundImage.frame = CGRectMake(frameXB, frameYB, frameWB, frameHB)
         foregroundImage.frame = CGRectMake(frameXF, frameYF, frameWF, frameHF)
         backgroundImage.image = dictionary.valueForKey("background") as? UIImage
@@ -345,6 +347,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
         contrastValueB = dictionary.valueForKey("contrastValueB") as! Float
         contrastValueF = dictionary.valueForKey("contrastValueF") as! Float
         sliderBlender.setValue(blenderValue, animated: true)
+        
         if (isBackgroundSelected == true) {
             sliderBrightness.setValue(brightnessValueB, animated: true)
             sliderContrast.setValue(contrastValueB, animated: true)
@@ -353,7 +356,7 @@ class EditViewController: UIViewController, UITabBarDelegate, UIScrollViewDelega
             sliderContrast.setValue(contrastValueF, animated: true)
         }
         if (images.isEmpty) {
-            var newDictionary : [String: AnyObject] = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF, "frameXB" : frameXB, "frameYB" : frameYB,  "frameHB" : frameHB, "frameWB" : frameWB, "frameXF" : frameXF, "frameYF" : frameYF,  "frameHF" : frameHF, "frameWF" : frameWF]
+            let newDictionary : [String: AnyObject] = ["background" : backgroundImage.image!, "foreground" : foregroundImage.image!, "blenderValue" : blenderValue, "brightnessValueB" : brightnessValueB, "contrastValueB" : contrastValueB, "brightnessValueF" : brightnessValueF, "contrastValueF" : contrastValueF, "frameXB" : frameXB, "frameYB" : frameYB,  "frameHB" : frameHB, "frameWB" : frameWB, "frameXF" : frameXF, "frameYF" : frameYF,  "frameHF" : frameHF, "frameWF" : frameWF]
             images.append(newDictionary)
         }
         firstUndo = false
