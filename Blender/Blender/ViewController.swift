@@ -20,11 +20,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var backgroundSet: Bool?
     var foregroundSet: Bool?
     
-    @IBAction func addBackground(sender: AnyObject) {
+    @IBAction func addBackground(_ sender: AnyObject) {
         selectedImage = 1
         self.addImage()
     }
-    @IBAction func addForeground(sender: AnyObject) {
+    @IBAction func addForeground(_ sender: AnyObject) {
         selectedImage = 2
         self.addImage()
     }
@@ -33,8 +33,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         imagePicker.delegate = self
         
-        backgroundLabel.hidden = false
-        foregroundLabel.hidden = false
+        backgroundLabel.isHidden = false
+        foregroundLabel.isHidden = false
         
         backgroundImage.image = UIImage(named: "photo")
         foregroundImage.image = UIImage(named: "photo")
@@ -43,10 +43,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         foregroundSet = false
         
         blendButton.layer.cornerRadius = 22
-        blendButton.layer.borderColor = UIColor.whiteColor().CGColor
+        blendButton.layer.borderColor = UIColor.white.cgColor
         blendButton.layer.borderWidth = 1
         
-        blendButton.userInteractionEnabled = false
+        blendButton.isUserInteractionEnabled = false
         blendButton.alpha = 0.5
     }
     
@@ -57,18 +57,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func addImage() {
         imagePicker.allowsEditing = false
         
-        let alertController = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .ActionSheet)
-        let cameraAction = UIAlertAction(title: "Take a Photo", style: .Default, handler: {
+        let alertController = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
+        let cameraAction = UIAlertAction(title: "Take a Photo", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            self.imagePicker.sourceType = .Camera
-            self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            self.imagePicker.sourceType = .camera
+            self.present(self.imagePicker, animated: true, completion: nil)
         })
-        let galleryAction = UIAlertAction(title: "Choose from Library", style: .Default, handler: {
+        let galleryAction = UIAlertAction(title: "Choose from Library", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            self.imagePicker.sourceType = .PhotoLibrary
-            self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            self.imagePicker.sourceType = .photoLibrary
+            self.present(self.imagePicker, animated: true, completion: nil)
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         alertController.addAction(cameraAction)
         alertController.addAction(galleryAction)
@@ -76,39 +76,39 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         alertController.view.tintColor = UIColor(red:1, green:0.41, blue:0.617, alpha:1)
         
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             if selectedImage == 1 {
-                backgroundImage.contentMode = UIViewContentMode.ScaleAspectFill
+                backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
                 backgroundImage.clipsToBounds = true
                 backgroundImage.image = pickedImage
-                backgroundLabel.hidden = true
+                backgroundLabel.isHidden = true
                 backgroundSet = true
             } else {
-                foregroundImage.contentMode = UIViewContentMode.ScaleAspectFill
+                foregroundImage.contentMode = UIViewContentMode.scaleAspectFill
                 foregroundImage.clipsToBounds = true
                 foregroundImage.image = pickedImage
-                foregroundLabel.hidden = true
+                foregroundLabel.isHidden = true
                 foregroundSet = true
             }
             if (foregroundSet == true && backgroundSet == true) {
                 blendButton.alpha = 1
-                blendButton.userInteractionEnabled = true
+                blendButton.isUserInteractionEnabled = true
             }
         }
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "showEdit") {
-            let destinationController = segue.destinationViewController as! EditViewController
+            let destinationController = segue.destination as! EditViewController
             destinationController.image1 = backgroundImage.image!
             destinationController.image2 = foregroundImage.image!
         }
